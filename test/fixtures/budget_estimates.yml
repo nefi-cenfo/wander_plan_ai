@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  food: 1.5
+  stay: 1.5
+  transport: 1.5
+  entertainment: 1.5
+  total: 1.5
+
+two:
+  food: 1.5
+  stay: 1.5
+  transport: 1.5
+  entertainment: 1.5
+  total: 1.5
