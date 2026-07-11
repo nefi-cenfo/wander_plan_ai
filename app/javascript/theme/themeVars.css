@@ -1,0 +1,28 @@
+:root {
+  --color-primary: #0ea5a4;
+  --color-primary-dark: #0f766e;
+  --color-secondary: #2563eb;
+  --bg-default: #f8fafc;
+  --bg-surface: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --divider: #d1d5db;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+/* Dark theme override (toggle by adding data-theme="dark" on <html> or <body>) */
+[data-theme='dark'] {
+  --color-primary: #0ea5a4;
+  --color-primary-dark: #0f766e;
+  --color-secondary: #2563eb;
+  --bg-default: #0b1220;
+  --bg-surface: #0f1724;
+  --text-primary: #e6eef3;
+  --text-secondary: #aab5c0;
+  --divider: #1f2937;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
