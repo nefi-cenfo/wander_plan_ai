@@ -1,10 +1,13 @@
 import UserLayout from '@/components/shared/UserLayout'
 import {menuItems} from '@/utils/user-navigation-items'
+import type {ReactNode} from 'react'
 
-export default function UserDashboard() {
-  return (
-    <UserLayout navigationItems={menuItems}>
-      <h1>This is the user dashboard</h1>
-    </UserLayout>
-  )
+function UserDashboard() {
+  return <h1>This is the user dashboard</h1>
 }
+
+UserDashboard.layout = (page: ReactNode) => (
+  <UserLayout navigationItems={menuItems}>{page}</UserLayout>
+)
+
+export default UserDashboard
