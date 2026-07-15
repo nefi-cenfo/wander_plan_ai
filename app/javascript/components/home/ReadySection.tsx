@@ -1,4 +1,4 @@
-import {Box, Button, Container, Typography} from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 
 export default function ReadySection() {
   return (
@@ -7,20 +7,24 @@ export default function ReadySection() {
         <Typography
           variant="h3"
           className="text-center"
-          sx={{fontWeight: '700'}}
+          sx={{ fontWeight: '700' }}
         >
           Ready to map your world?
         </Typography>
         <Typography
           variant="body1"
           className="w-2xl text-center"
-          sx={{marginTop: '1rem', marginBottom: '2rem'}}
+          sx={{ marginTop: '1rem', marginBottom: '2rem' }}
         >
           Join 50,000+ travelers planning smarter, faster, and more affordably
           with WanderPlan.
         </Typography>
         <Box
-          sx={{display: 'flex', justifyContent: 'center', marginBottom: '1rem'}}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '1rem',
+          }}
         >
           <Button
             variant="text"

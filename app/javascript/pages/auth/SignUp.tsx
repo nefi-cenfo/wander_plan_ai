@@ -1,5 +1,5 @@
 import SignUpForm from '@/components/auth/SignUpForm'
-import {Box} from '@mui/material'
+import { Box } from '@mui/material'
 
 export default function SignUp() {
   return (

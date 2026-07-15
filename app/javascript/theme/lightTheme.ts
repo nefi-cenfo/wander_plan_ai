@@ -1,4 +1,4 @@
-import {createTheme} from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 
 const lightTheme = createTheme({
   palette: {
@@ -21,23 +21,23 @@ const lightTheme = createTheme({
       secondary: '#6B7280',
     },
     divider: '#D1D5DB',
-    success: {main: '#10B981'},
-    warning: {main: '#F59E0B'},
-    error: {main: '#EF4444'},
+    success: { main: '#10B981' },
+    warning: { main: '#F59E0B' },
+    error: { main: '#EF4444' },
   },
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {borderRadius: 8},
+        root: { borderRadius: 8 },
         // containedPrimary: { boxShadow: 'none' }
       },
     },
     MuiCard: {
-      styleOverrides: {root: {borderRadius: 12}},
+      styleOverrides: { root: { borderRadius: 12 } },
     },
     MuiAppBar: {
       styleOverrides: {
-        colorPrimary: {backgroundColor: '#FFFFFF', color: '#111827'},
+        colorPrimary: { backgroundColor: '#FFFFFF', color: '#111827' },
       },
     },
   },

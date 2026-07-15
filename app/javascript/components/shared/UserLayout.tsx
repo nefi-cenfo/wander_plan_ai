@@ -9,11 +9,11 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import {ReactNode} from 'react'
+import { ReactNode } from 'react'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
-import {Link, router, usePage} from '@inertiajs/react'
-import {Avatar, Container} from '@mui/material'
-import {NavigationItem} from '@/types/navigation-item'
+import { Link, router, usePage } from '@inertiajs/react'
+import { Avatar, Container } from '@mui/material'
+import { NavigationItem } from '@/types/navigation-item'
 
 const drawerWidth = 240
 
@@ -24,18 +24,19 @@ export default function UserLayout({
   navigationItems: NavigationItem[]
   children: ReactNode
 }) {
-  const {auth} = usePage().props as any
-  const initials = auth.user.name.at(0) + auth.user.lastname.at(0)
+  const { auth } = usePage().props
+  const user = auth.user
+  const initials = user ? `${user.name[0] ?? ''}${user.lastname[0] ?? ''}` : ''
 
   const handleLogout = () => {
     router.delete('/users/sign_out')
   }
 
   return (
-    <Box sx={{display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
       <AppBar
         position="fixed"
-        sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
           <Typography
@@ -92,7 +93,7 @@ export default function UserLayout({
             </ListItem>
           ))}
         </List>
-        <Divider sx={{marginTop: 'auto'}} />
+        <Divider sx={{ marginTop: 'auto' }} />
         <List>
           <ListItem disablePadding>
             <ListItemButton onClick={handleLogout}>
@@ -121,7 +122,7 @@ export default function UserLayout({
         </Box>
         <footer className="w-full h-[49px]">
           <Divider />
-          <Typography sx={{textAlign: 'center', lineHeight: '49px'}}>
+          <Typography sx={{ textAlign: 'center', lineHeight: '49px' }}>
             © 2024 WanderPlan Inc. All rights reserved.
           </Typography>
         </footer>

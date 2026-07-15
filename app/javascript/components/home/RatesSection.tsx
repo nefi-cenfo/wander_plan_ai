@@ -1,11 +1,11 @@
-import {Box, Container, Typography} from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 
 export default function RatesSection() {
   return (
     <Container fixed maxWidth="xl" className="my-30">
       <Box
         className="w-full max-w-7xl"
-        sx={{display: 'flex', justifyContent: 'space-between'}}
+        sx={{ display: 'flex', justifyContent: 'space-between' }}
       >
         <span className="flex flex-col">
           <Typography

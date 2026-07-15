@@ -1,4 +1,4 @@
-import {Box, Card, CardContent, Container, Typography} from '@mui/material'
+import { Box, Card, CardContent, Container, Typography } from '@mui/material'
 
 export default function ExploreSection() {
   const features = [
@@ -29,24 +29,24 @@ export default function ExploreSection() {
         <Typography
           variant="h3"
           className="text-center"
-          sx={{fontWeight: '700', marginTop: '6rem', marginBottom: '1rem'}}
+          sx={{ fontWeight: '700', marginTop: '6rem', marginBottom: '1rem' }}
         >
           Everything You Need to Explore
         </Typography>
         <Typography
           variant="body1"
           className="w-2xl text-center"
-          sx={{marginBottom: '3rem'}}
+          sx={{ marginBottom: '3rem' }}
         >
           WanderPlan combines cutting-edge AI with trusted industry data to give
           you the ultimate travel planning toolkit.
         </Typography>
         <Box
           className="w-full max-w-7xl flex flex-row justify-between flex-wrap"
-          sx={{marginBottom: '6rem'}}
+          sx={{ marginBottom: '6rem' }}
         >
           {features.map((feature, index) => (
-            <Card variant="outlined" sx={{width: '280px'}} key={index}>
+            <Card variant="outlined" sx={{ width: '280px' }} key={index}>
               <CardContent>
                 <Typography
                   variant="h4"
