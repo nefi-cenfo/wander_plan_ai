@@ -72,3 +72,5 @@ gem "vite_rails", "~> 3.11"
 group :development, :test do
   gem 'dotenv-rails'
 end
+
+gem "devise", "~> 5.0"
