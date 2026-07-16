@@ -1,24 +1,9 @@
-import {createInertiaApp} from '@inertiajs/react'
-import {createRoot} from 'react-dom/client'
+import { createInertiaApp } from '@inertiajs/react'
+import { createRoot } from 'react-dom/client'
 
-import {
-  StyledEngineProvider,
-  ThemeProvider,
-  createTheme,
-} from '@mui/material/styles'
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import lightTheme from '@/theme/lightTheme'
-
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: '#1976d2',
-//     },
-//     secondary: {
-//       main: '#9c27b0',
-//     },
-//   },
-// })
 
 void createInertiaApp({
   pages: '../pages',
@@ -31,11 +16,14 @@ void createInertiaApp({
       withAllErrors: true,
     },
     visitOptions: () => {
-      return {queryStringArrayFormat: 'brackets'}
+      return { queryStringArrayFormat: 'brackets' }
     },
   },
 
-  setup({el, App, props}) {
+  setup({ el, App, props }) {
+    if (!el) {
+      throw new Error('Missing Inertia root element')
+    }
     createRoot(el).render(
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={lightTheme}>

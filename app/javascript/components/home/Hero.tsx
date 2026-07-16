@@ -1,4 +1,4 @@
-import {Box, Button, Container, Paper, Typography} from '@mui/material'
+import { Box, Button, Container, Paper, Typography } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import heroImg from '/assets/hero.png'
 
@@ -49,7 +49,7 @@ export default function Hero() {
               variant="contained"
               size="large"
               endIcon={<ArrowForwardIcon />}
-              sx={{marginRight: '0.8rem'}}
+              sx={{ marginRight: '0.8rem' }}
             >
               Start Planning for Free
             </Button>

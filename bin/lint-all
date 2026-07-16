@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+bin/rubocop -a
+npm run format
+npm run check
+npm run lint:fix

@@ -6,21 +6,21 @@ import RatesSection from '@/components/home/RatesSection'
 import ReadySection from '@/components/home/ReadySection'
 import FooterSection from '@/components/home/FooterSection'
 
-import {Box, Divider} from '@mui/material'
+import { Box, Divider } from '@mui/material'
 
 export default function Home() {
   return (
     <>
       <HomeHeader />
       <Hero />
-      <Box sx={{backgroundColor: '#f4f4fb'}}>
+      <Box sx={{ backgroundColor: '#f4f4fb' }}>
         <ExploreSection />
       </Box>
       <Divider />
       <PartnerSection />
       <Divider />
       <RatesSection />
-      <Box sx={{backgroundColor: 'primary.main'}}>
+      <Box sx={{ backgroundColor: 'primary.main' }}>
         <ReadySection />
       </Box>
       <FooterSection />

@@ -1,4 +1,4 @@
-import {Typography} from '@mui/material'
+import { Typography } from '@mui/material'
 
 export default function FooterSection() {
   const currentYear = new Date().getFullYear()
@@ -7,7 +7,7 @@ export default function FooterSection() {
       <Typography
         variant="body2"
         className="text-center"
-        sx={{marginY: '1rem'}}
+        sx={{ marginY: '1rem' }}
       >
         &copy; {currentYear} WanderPlan. Built for travelers, by travelers.
       </Typography>

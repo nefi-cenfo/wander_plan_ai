@@ -1,4 +1,4 @@
-import {Link} from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -24,7 +24,7 @@ export default function HomeHeader() {
             <Button
               LinkComponent={Link}
               variant="text"
-              sx={{marginRight: '0.8rem'}}
+              sx={{ marginRight: '0.8rem' }}
               href="/users/sign_in"
             >
               Login

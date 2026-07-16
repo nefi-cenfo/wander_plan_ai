@@ -1,10 +1,10 @@
-import {useForm, usePage} from '@inertiajs/react'
-import {Alert, Box, Button, TextField, Typography} from '@mui/material'
+import { useForm, usePage } from '@inertiajs/react'
+import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import React from 'react'
 
 export default function SignUpForm() {
-  const {flash} = usePage().props as any
-  const {data, setData, post, processing, errors, setError, clearErrors} =
+  const { flash } = usePage()
+  const { data, setData, post, processing, errors, setError, clearErrors } =
     useForm({
       user: {
         name: '',
@@ -74,7 +74,7 @@ export default function SignUpForm() {
         component="h1"
         gutterBottom
         align="center"
-        sx={{color: 'primary.main', fontWeight: 'bold'}}
+        sx={{ color: 'primary.main', fontWeight: 'bold' }}
       >
         WanderPlan
       </Typography>
@@ -83,13 +83,13 @@ export default function SignUpForm() {
         gutterBottom
         align="center"
         color="text.secondary"
-        sx={{marginBottom: 3}}
+        sx={{ marginBottom: 3 }}
       >
         Create your account to start planning
       </Typography>
 
       {flash.alert && (
-        <Alert severity="error" sx={{mb: 3}}>
+        <Alert severity="error" sx={{ mb: 3 }}>
           {flash.alert}
         </Alert>
       )}
@@ -166,7 +166,7 @@ export default function SignUpForm() {
         size="large"
         fullWidth
         disabled={processing}
-        sx={{mt: 4, py: 1.5}}
+        sx={{ mt: 4, py: 1.5 }}
       >
         {processing ? 'Creating account...' : 'Sign Up'}
       </Button>

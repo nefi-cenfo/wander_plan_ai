@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardHeader,
   List,
   ListItem,
   ListItemIcon,
@@ -21,7 +20,7 @@ export default function PartnerSection() {
       maxWidth="xl"
       className="flex flex-row justify-between my-30"
     >
-      <Box sx={{width: '512px'}}>
+      <Box sx={{ width: '512px' }}>
         <Typography
           sx={{
             fontSize: '.8rem',
@@ -32,10 +31,10 @@ export default function PartnerSection() {
         >
           Partner Ecosystem
         </Typography>
-        <Typography variant="h3" sx={{fontSize: '2rem', fontWeight: 700}}>
+        <Typography variant="h3" sx={{ fontSize: '2rem', fontWeight: 700 }}>
           Powered by TripAdvisor Data
         </Typography>
-        <Typography variant="body1" sx={{marginY: '1rem'}}>
+        <Typography variant="body1" sx={{ marginY: '1rem' }}>
           Get authentic insights directly in your itinerary. We sync with
           TripAdvisor to ensure your stops are highly rated and verified by
           millions.
@@ -72,9 +71,9 @@ export default function PartnerSection() {
           alignItems: 'center',
         }}
       >
-        <Card sx={{width: '320px', height: '214px', padding: '12px'}}>
+        <Card sx={{ width: '320px', height: '214px', padding: '12px' }}>
           <CardContent>
-            <Box sx={{display: 'flex'}}>
+            <Box sx={{ display: 'flex' }}>
               <Typography
                 variant="h4"
                 sx={{
@@ -90,15 +89,15 @@ export default function PartnerSection() {
             </Box>
             <Typography
               variant="h5"
-              sx={{fontSize: '1.2rem', fontWeight: 700, marginY: '1rem'}}
+              sx={{ fontSize: '1.2rem', fontWeight: 700, marginY: '1rem' }}
             >
               La Sponda Restaurant
             </Typography>
-            <Typography variant="body2" sx={{marginBottom: '0.5rem'}}>
-              "The view is absolutely breathtaking. AI suggested this for sunset
-              and it was perfectly timed..."
+            <Typography variant="body2" sx={{ marginBottom: '0.5rem' }}>
+              &quot;The view is absolutely breathtaking. AI suggested this for
+              sunset and it was perfectly timed...&quot;
             </Typography>
-            <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Avatar
                 sx={{
                   bgcolor: 'primary.main',
@@ -110,7 +109,7 @@ export default function PartnerSection() {
               >
                 JD
               </Avatar>
-              <Typography sx={{fontSize: '0.8rem'}}>
+              <Typography sx={{ fontSize: '0.8rem' }}>
                 John D. • Local Guide
               </Typography>
             </Box>

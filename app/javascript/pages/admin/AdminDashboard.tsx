@@ -1,6 +1,6 @@
 import UserLayout from '@/components/shared/UserLayout'
-import {menuItems} from '@/utils/admin-navigation-items'
-import type {ReactNode} from 'react'
+import { menuItems } from '@/utils/admin-navigation-items'
+import type { ReactNode } from 'react'
 
 function AdminDashboard() {
   return <h1>This is the admin dashboard</h1>
