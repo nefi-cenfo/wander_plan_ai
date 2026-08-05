@@ -123,7 +123,7 @@ export default function UserLayout({
         <footer className="w-full h-[49px]">
           <Divider />
           <Typography sx={{ textAlign: 'center', lineHeight: '49px' }}>
-            © 2024 WanderPlan Inc. All rights reserved.
+            © 2026 WanderPlan Inc. All rights reserved.
           </Typography>
         </footer>
       </div>

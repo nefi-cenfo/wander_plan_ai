@@ -3,7 +3,14 @@ import { createRoot } from 'react-dom/client'
 
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import lightTheme from '@/theme/lightTheme'
+import { APIProvider } from '@vis.gl/react-google-maps'
+import GlobalLoader from '@/components/shared/GlobalLoader'
+// import darkTheme from '@/theme/darkTheme'
+
+const googleMapsKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
 void createInertiaApp({
   pages: '../pages',
@@ -27,8 +34,13 @@ void createInertiaApp({
     createRoot(el).render(
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={lightTheme}>
-          <CssBaseline />
-          <App {...props} />
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <APIProvider apiKey={googleMapsKey}>
+              <CssBaseline />
+              <GlobalLoader />
+              <App {...props} />
+            </APIProvider>
+          </LocalizationProvider>
         </ThemeProvider>
       </StyledEngineProvider>,
     )

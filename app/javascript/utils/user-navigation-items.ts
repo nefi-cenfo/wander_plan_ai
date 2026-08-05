@@ -13,12 +13,12 @@ export const menuItems: NavigationItem[] = [
   {
     name: 'Discover',
     icon: ViewCarouselRoundedIcon,
-    link: '/',
+    link: '/trips/new',
   },
   {
     name: 'My Trips',
     icon: FavoriteRoundedIcon,
-    link: '/',
+    link: '/trips',
   },
   {
     name: 'Billing',

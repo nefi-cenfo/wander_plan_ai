@@ -3,4 +3,9 @@ class Trip < ApplicationRecord
   belongs_to :itinerary
   has_many :trip_destinations
   has_many :destinations, through: :trip_destinations
+
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
+  scope :next_trips, -> { where("start_date > ?", Date.current) }
 end

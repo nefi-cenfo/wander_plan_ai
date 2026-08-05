@@ -7,6 +7,13 @@ Rails.application.routes.draw do
 
   authenticated :user, ->(u) { u.role != "admin" } do
     root to: "users_dashboard#index", as: :user_root
+    resources :trips, only: [ :new, :index, :create ] do
+      get ":id", to: "trips#show"
+    end
+
+    resources :destinations, only: [] do
+      get "places/:name", to: "places#show", as: :place
+    end
   end
 
   authenticated :user, ->(u) { u.role == "admin" } do
@@ -33,4 +40,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  match "/404", to: "errors#not_found", via: :all
 end

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -25,6 +27,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def render_not_found
+    render inertia: "errors/NotFound", status: :not_found
+  end
 
   def after_sign_in_path_for(resource)
     if resource.role == "admin"
