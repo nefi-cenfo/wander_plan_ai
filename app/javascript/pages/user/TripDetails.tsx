@@ -43,7 +43,10 @@ function TripDetails({ trip }: { trip: Trip }) {
 
         <Grid size={{ xs: 12, lg: 4 }}>
           <Stack spacing={2}>
-            <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
+            <Card
+              elevation={0}
+              sx={{ border: '1px solid', borderColor: 'divider' }}
+            >
               <CardContent>
                 <Stack
                   direction="row"
@@ -55,7 +58,11 @@ function TripDetails({ trip }: { trip: Trip }) {
                     Destination Snapshot
                   </Typography>
                 </Stack>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2 }}
+                >
                   Your trip centers around this destination and uses its
                   coordinates to enrich place recommendations.
                 </Typography>

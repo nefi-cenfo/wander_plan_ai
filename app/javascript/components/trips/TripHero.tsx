@@ -71,8 +71,8 @@ export default function TripHero({ trip }: { trip: Trip }) {
           variant="h6"
           sx={{ maxWidth: 620, color: 'rgba(255,255,255,0.86)', mb: 3 }}
         >
-          Your AI-assisted travel plan with curated places, practical notes,
-          and local recommendations for the journey.
+          Your AI-assisted travel plan with curated places, practical notes, and
+          local recommendations for the journey.
         </Typography>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
