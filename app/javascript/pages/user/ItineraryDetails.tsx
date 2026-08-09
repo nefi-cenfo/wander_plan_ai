@@ -28,9 +28,7 @@ function ItineraryDetails({ trip }: { trip: Trip }) {
     setDownloadingPdf(true)
 
     try {
-      const response = await fetch(
-        `/trips/${trip.id}/itineraries/download_pdf`,
-      )
+      const response = await fetch(`/trips/${trip.id}/itineraries/download_pdf`)
 
       if (!response.ok) {
         throw new Error('PDF download failed')
