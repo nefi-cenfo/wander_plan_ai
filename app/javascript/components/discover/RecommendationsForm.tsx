@@ -20,9 +20,9 @@ export default function RecommendationsForm() {
   const [selectedPlace, setSelectedPlace] =
     useState<google.maps.places.Place | null>(null)
   const today = dayjs().startOf('day')
-  console.log(
-    selectedPlace?.location?.lat() + ',-' + selectedPlace?.location?.lng(),
-  )
+  const minimumEndDate = data.trip.start_date
+    ? dayjs(data.trip.start_date).startOf('day')
+    : today
 
   const validateForm = () => {
     let isValid = true
@@ -51,8 +51,8 @@ export default function RecommendationsForm() {
     if (!data.trip.end_date) {
       setError('trip.end_date', ['End date is required.'])
       isValid = false
-    } else if (endDate.isBefore(today, 'day')) {
-      setError('trip.end_date', ['End date must be today or later.'])
+    } else if (endDate.isBefore(startDate, 'day')) {
+      setError('trip.end_date', ['End date must be on or after start date.'])
       isValid = false
     }
 
@@ -103,7 +103,7 @@ export default function RecommendationsForm() {
         sx={{ flexGrow: 1 }}
         label="End Date"
         value={dayjs(data.trip.end_date)}
-        minDate={today}
+        minDate={minimumEndDate}
         onChange={(date) =>
           setData('trip.end_date', date!.format('YYYY-MM-DD'))
         }

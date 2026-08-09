@@ -68,6 +68,19 @@ class TripsController < ApplicationController
     # puts JSON.pretty_generate(suggestion_list)
   end
 
+  def destroy
+    trip_id = params[:id]
+    trip = current_user.trips.find_by_id(trip_id)
+
+    return render inertia: "errors/NotFound" unless trip
+
+    if trip.destroy
+      redirect_to trips_path, notice: "Trip successfully deleted"
+    else
+      redirect_to trips_path, alert: "There was an error deleting the trip"
+    end
+  end
+
   private
 
   def trip_params

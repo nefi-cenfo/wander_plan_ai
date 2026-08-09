@@ -3,7 +3,8 @@ require "httparty"
 class TripadvisorEnrichmentService
   include HTTParty
 
-  base_uri "https://terra.tripadvisor.com/api" # Include on env
+  # base_uri "https://terra.tripadvisor.com/api" # Include on env
+  base_uri ENV["TRIPADVISOR_API_URI"]
 
   def initialize(attraction_name, location_context)
     @attraction_name = attraction_name

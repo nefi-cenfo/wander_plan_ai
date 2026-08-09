@@ -1,10 +1,8 @@
 import { Suggestion } from '@/types/suggestion'
-import { Box, Button, Card, CardContent, Grid, Typography } from '@mui/material'
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import EastOutlinedIcon from '@mui/icons-material/EastOutlined'
+import { Box, Chip, Grid, Stack, Typography } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { Destination } from '@/types/destination'
-import { Link } from '@inertiajs/react'
+import SuggestionCard from './SuggestionCard'
 
 export default function SuggestionList({
   suggestions,
@@ -16,39 +14,47 @@ export default function SuggestionList({
   return (
     <Box>
       <Box
-        component="h5"
-        sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: 2,
+          mb: 3,
+        }}
       >
-        <Typography sx={{ fontSize: '1.5rem', fontWeight: 700 }}>
-          Discovery Results
-        </Typography>
-        <Typography variant="subtitle1">
-          <InfoOutlinedIcon sx={{ mr: 1 }} />
-          Showing {suggestions.length} tailored results
-        </Typography>
+        <Box>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 0.5 }}>
+            Discovery Results
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Curated places matched to your destination, timing, and travel context.
+          </Typography>
+        </Box>
+        <Chip
+          icon={<InfoOutlinedIcon />}
+          label={`${suggestions.length} tailored results`}
+          sx={{
+            color: 'primary.dark',
+            fontWeight: 700,
+            backgroundColor: 'rgba(14, 165, 164, 0.1)',
+            '& .MuiChip-icon': { color: 'primary.main' },
+          }}
+        />
       </Box>
       <Grid container spacing={3}>
-        {suggestions.map((suggestion) => (
-          <Grid size={4} key={`${suggestion.name}-${suggestion.city}`}>
-            <Card>
-              <CardContent>
-                <Typography variant="h6">{suggestion.name}</Typography>
-                <Typography color="text.secondary">
-                  <LocationOnOutlinedIcon />
-                  {suggestion.city}, {suggestion.country}
-                </Typography>
-                <Typography sx={{ my: 1 }}>{suggestion.description}</Typography>
-                <Button
-                  variant="contained"
-                  endIcon={<EastOutlinedIcon />}
-                  sx={{ width: '100%', justifyContent: 'space-between' }}
-                  LinkComponent={Link}
-                  href={`/destinations/${destination?.id}/places/${encodeURIComponent(suggestion.name)}`}
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
+        {suggestions.map((suggestion, index) => (
+          <Grid
+            size={{ xs: 12, sm: 6, lg: 4 }}
+            key={`${suggestion.name}-${suggestion.city}`}
+          >
+            <Stack sx={{ height: '100%' }}>
+              <SuggestionCard
+                suggestion={suggestion}
+                destination={destination}
+                index={index}
+              />
+            </Stack>
           </Grid>
         ))}
       </Grid>

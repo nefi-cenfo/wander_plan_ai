@@ -6,17 +6,36 @@ import {
   Button,
   Card,
   CardContent,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Divider,
   Grid,
   Typography,
 } from '@mui/material'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import emptyPlaceholderImg from '@/assets/undraw_blank-canvas_a6x5.svg'
 import AddIcon from '@mui/icons-material/Add'
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import TripCard from '@/components/trips/TripCard'
 
 function Trips({ trips }: { trips: Trip[] }) {
+  const [openDialog, handleDialog] = useState<boolean>(false)
+  const [tripToDelete, setTripToDelete] = useState<Trip | null>(null)
+
+  const showDialog = (trip: Trip) => {
+    setTripToDelete(trip)
+    handleDialog(true)
+  }
+
+  const deleteTrip = () => {
+    router.delete(`/trips/${tripToDelete?.id}`)
+    handleDialog(false)
+    setTripToDelete(null)
+  }
+
   return (
     <>
       <Typography
@@ -76,7 +95,7 @@ function Trips({ trips }: { trips: Trip[] }) {
           <Grid container spacing={3}>
             {trips.map((trip, index) => (
               <Grid key={index} size={4}>
-                <TripCard trip={trip} />
+                <TripCard trip={trip} onDelete={showDialog} />
               </Grid>
             ))}
           </Grid>
@@ -99,12 +118,41 @@ function Trips({ trips }: { trips: Trip[] }) {
           </Card>
         </Box>
       )}
+
+      <Dialog
+        open={openDialog}
+        onClose={handleDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        role="alertdialog"
+      >
+        <DialogTitle id="alert-dialog-title">
+          My trip to {tripToDelete?.destination.location}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete the trip to{' '}
+            {tripToDelete?.destination.location}?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => handleDialog(false)} autoFocus>
+            Cancel
+          </Button>
+          <Button onClick={deleteTrip}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
 
 Trips.layout = (page: ReactNode) => (
-  <UserLayout navigationItems={menuItems}>{page}</UserLayout>
+  <UserLayout
+    navigationItems={menuItems}
+    breadcrumbs={[{ label: 'Dashboard', href: '/' }, { label: 'My Trips' }]}
+  >
+    {page}
+  </UserLayout>
 )
 
 export default Trips

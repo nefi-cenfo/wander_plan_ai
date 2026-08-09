@@ -15,7 +15,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { ReactNode } from 'react'
+import { ReactElement, useRef } from 'react'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ReviewsSection from '@/components/placeDetails/ReviewsSection'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
@@ -30,6 +30,14 @@ function PlaceDetails({
   enrichedData: TripadvisorData
 }) {
   const { location_details, location_photos, location_reviews } = enrichedData
+  const reviewsSectionRef = useRef<HTMLDivElement>(null)
+
+  const scrollToReviews = () => {
+    reviewsSectionRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
 
   return (
     <>
@@ -52,7 +60,20 @@ function PlaceDetails({
           readOnly
           size="small"
         />
-        <Typography variant="body2">
+        <Typography
+          variant="body2"
+          component="button"
+          onClick={scrollToReviews}
+          sx={{
+            p: 0,
+            border: 0,
+            color: 'primary.main',
+            cursor: 'pointer',
+            backgroundColor: 'transparent',
+            textDecoration: 'underline',
+            font: 'inherit',
+          }}
+        >
           ({location_details.traveler_ratings.overall?.count} reviews)
         </Typography>
       </Stack>
@@ -83,11 +104,13 @@ function PlaceDetails({
                 longitude={location_details.coordinates.longitude}
               />
             </Box>
-            <ReviewsSection
-              travelerRatings={location_details.traveler_ratings}
-              locationReviews={location_reviews}
-              tripadvisorUrls={location_details.urls}
-            />
+            <div ref={reviewsSectionRef} id="reviews">
+              <ReviewsSection
+                travelerRatings={location_details.traveler_ratings}
+                locationReviews={location_reviews}
+                tripadvisorUrls={location_details.urls}
+              />
+            </div>
           </Box>
         </Grid>
         <Grid size={4}>
@@ -116,8 +139,29 @@ function PlaceDetails({
   )
 }
 
-PlaceDetails.layout = (page: ReactNode) => (
-  <UserLayout navigationItems={menuItems}>{page}</UserLayout>
-)
+PlaceDetails.layout = (
+  page: ReactElement<{ suggestion: Suggestion; enrichedData: TripadvisorData }>,
+) => {
+  const suggestion = page.props?.suggestion
+  const enrichedData = page.props?.enrichedData
+  const placeName =
+    enrichedData?.location_details.names[0]?.value ||
+    suggestion?.name ||
+    'Place Details'
+
+  return (
+    <UserLayout
+      navigationItems={menuItems}
+      breadcrumbs={[
+        { label: 'Dashboard', href: '/' },
+        { label: 'Discover', href: '/trips/new' },
+        ...(suggestion?.city ? [{ label: suggestion.city }] : []),
+        { label: placeName },
+      ]}
+    >
+      {page}
+    </UserLayout>
+  )
+}
 
 export default PlaceDetails

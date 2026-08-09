@@ -14,14 +14,18 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import { Link, router, usePage } from '@inertiajs/react'
 import { Avatar, Container } from '@mui/material'
 import { NavigationItem } from '@/types/navigation-item'
+import { BreadcrumbItem } from '@/types/breadcrumb'
+import AppBreadcrumbs from './AppBreadcrumbs'
 
 const drawerWidth = 240
 
 export default function UserLayout({
   navigationItems,
+  breadcrumbs = [],
   children,
 }: {
   navigationItems: NavigationItem[]
+  breadcrumbs?: BreadcrumbItem[]
   children: ReactNode
 }) {
   const { auth } = usePage().props
@@ -117,6 +121,7 @@ export default function UserLayout({
         >
           <Toolbar />
           <Container fixed maxWidth="xl">
+            <AppBreadcrumbs items={breadcrumbs} />
             {children}
           </Container>
         </Box>

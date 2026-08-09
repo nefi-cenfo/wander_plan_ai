@@ -64,7 +64,15 @@ function Discover({
 }
 
 Discover.layout = (page: ReactNode) => (
-  <UserLayout navigationItems={menuItems}>{page}</UserLayout>
+  <UserLayout
+    navigationItems={menuItems}
+    breadcrumbs={[
+      { label: 'Dashboard', href: '/' },
+      { label: 'Discover' },
+    ]}
+  >
+    {page}
+  </UserLayout>
 )
 
 export default Discover

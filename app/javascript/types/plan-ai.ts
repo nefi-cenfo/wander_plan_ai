@@ -1,4 +1,4 @@
-interface PlanTime {
+export interface PlanTime {
   budgetEstimate: number
   place: string
   activity: {

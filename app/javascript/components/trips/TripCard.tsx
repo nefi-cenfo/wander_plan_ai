@@ -14,10 +14,45 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import DeleteIcon from '@mui/icons-material/Delete'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import { Link } from '@inertiajs/react'
+import { useEffect, useState } from 'react'
+import { GalleryPhoto } from '@/types/gallery'
 
-export default function TripCard({ trip }: { trip: Trip }) {
+export default function TripCard({
+  trip,
+  onDelete,
+}: {
+  trip: Trip
+  onDelete: (trip: Trip) => void
+}) {
   const startDateFormatted = dayjs(trip.startDate).format('MMM DD')
   const endDateFormatted = dayjs(trip.endDate).format('MMM DD, YYYY')
+  const suggestion = trip.itinerary?.suggestions[0]
+  const [placePhoto, setPlacePhoto] = useState<GalleryPhoto>({
+    photoSource: 'https://placehold.net/default.svg',
+    caption: 'place attraction',
+  })
+
+  const getTripadvisorDetails = async () => {
+    if (suggestion) {
+      const params = new URLSearchParams({
+        city: suggestion?.city,
+      })
+      const url = `/destinations/${trip.destination.id}/enriched-data/${encodeURIComponent(suggestion.name)}?${params}`
+
+      const response = await fetch(url)
+      const enrichedData = await response.json()
+      const { location_photos } = enrichedData
+
+      setPlacePhoto({
+        photoSource: location_photos[0].photo.original_size_url,
+        caption: location_photos[0].caption,
+      })
+    }
+  }
+
+  useEffect(() => {
+    getTripadvisorDetails()
+  }, [])
 
   return (
     <Card>
@@ -28,8 +63,8 @@ export default function TripCard({ trip }: { trip: Trip }) {
             borderTopLeftRadius: 'inherit',
             borderTopRightRadius: 'inherit',
           }}
-          image="https://placehold.net/default.svg"
-          title="place attraction"
+          image={placePhoto?.photoSource}
+          title={placePhoto?.caption}
         />
         <Box
           sx={{
@@ -73,7 +108,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
           }}
         >
           <LocationOnOutlinedIcon sx={{ fontSize: 18 }} />
-          {trip.destination.location}
+          {suggestion?.name ?? trip.destination.location}
         </Typography>
       </Box>
       <CardContent>
@@ -105,6 +140,7 @@ export default function TripCard({ trip }: { trip: Trip }) {
           startIcon={<DeleteIcon />}
           sx={{ flexGrow: 1 }}
           color="error"
+          onClick={() => onDelete(trip)}
         >
           Delete Adventure
         </Button>

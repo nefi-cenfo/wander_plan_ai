@@ -7,12 +7,14 @@ Rails.application.routes.draw do
 
   authenticated :user, ->(u) { u.role != "admin" } do
     root to: "users_dashboard#index", as: :user_root
-    resources :trips, only: [ :new, :index, :create ] do
+    resources :trips, only: [ :new, :index, :create, :destroy ] do
+      get "itinerary", to: "itineraries#show"
       get ":id", to: "trips#show"
     end
 
     resources :destinations, only: [] do
       get "places/:name", to: "places#show", as: :place
+      get "enriched-data/:place", to: "places#enriched_data", as: :enriched_data
     end
   end
 
