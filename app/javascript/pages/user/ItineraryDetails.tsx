@@ -5,14 +5,51 @@ import { menuItems } from '@/utils/user-navigation-items'
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import { Alert, Box, Chip, Paper, Stack, Typography } from '@mui/material'
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
+import {
+  Alert,
+  Box,
+  Button,
+  Chip,
+  Paper,
+  Stack,
+  Typography,
+} from '@mui/material'
 import dayjs from 'dayjs'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 
 function ItineraryDetails({ trip }: { trip: Trip }) {
+  const [downloadingPdf, setDownloadingPdf] = useState(false)
   const plannedDays = Array.isArray(trip.itinerary?.plannedDays)
     ? trip.itinerary.plannedDays
     : []
+
+  const downloadPdf = async () => {
+    setDownloadingPdf(true)
+
+    try {
+      const response = await fetch(
+        `/trips/${trip.id}/itineraries/download_pdf`,
+      )
+
+      if (!response.ok) {
+        throw new Error('PDF download failed')
+      }
+
+      const pdfBlob = await response.blob()
+      const downloadUrl = window.URL.createObjectURL(pdfBlob)
+      const downloadLink = document.createElement('a')
+
+      downloadLink.href = downloadUrl
+      downloadLink.download = `WanderPlan_${trip.destination.location}_Itinerary.pdf`
+      document.body.appendChild(downloadLink)
+      downloadLink.click()
+      downloadLink.remove()
+      window.URL.revokeObjectURL(downloadUrl)
+    } finally {
+      setDownloadingPdf(false)
+    }
+  }
 
   return (
     <>
@@ -85,6 +122,26 @@ function ItineraryDetails({ trip }: { trip: Trip }) {
             </Stack>
           </Stack>
         </Box>
+        <Button
+          variant="contained"
+          startIcon={<DownloadOutlinedIcon />}
+          onClick={downloadPdf}
+          disabled={downloadingPdf}
+          sx={{
+            position: { xs: 'relative', md: 'absolute' },
+            top: { md: 32 },
+            right: { md: 32 },
+            mt: { xs: 3, md: 0 },
+            color: 'primary.main',
+            backgroundColor: 'common.white',
+            fontWeight: 800,
+            '&:hover': {
+              backgroundColor: 'rgba(255,255,255,0.9)',
+            },
+          }}
+        >
+          {downloadingPdf ? 'Preparing PDF...' : 'Download PDF'}
+        </Button>
       </Paper>
 
       {plannedDays.length ? (

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     root to: "users_dashboard#index", as: :user_root
     resources :trips, only: [ :new, :index, :create, :destroy ] do
       get "itinerary", to: "itineraries#show"
+      get "itineraries/download_pdf", to: "itineraries#download_pdf"
       get ":id", to: "trips#show"
     end
 

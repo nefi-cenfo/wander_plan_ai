@@ -22,6 +22,28 @@ class ItinerariesController < ApplicationController
     }
   end
 
+  def download_pdf
+    trip_id = params[:trip_id]
+    @trip = current_user.trips.find_by_id(trip_id)
+    return render inertia: "errors/NotFound" unless @trip
+
+    @itinerary = @trip.itinerary
+    @destination = @trip.destinations.first
+    @daily_schedule = @itinerary.plan_ai
+
+    html = render_to_string(
+      template: "itineraries/pocket_mode_pdf",
+      layout: false,
+      locals: { trip: @trip, destination: @destination, daily_schedule: @daily_schedule }
+    )
+    pdf = Grover.new(html).to_pdf
+
+    send_data pdf,
+              filename: "WanderPlan_#{@destination.location}_PocketMode.pdf",
+              type: "application/pdf",
+              disposition: "attachment"
+  end
+
   private
 
   def build_trip_details_prop(trip)

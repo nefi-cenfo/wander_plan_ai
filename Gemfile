@@ -78,3 +78,5 @@ gem "devise", "~> 5.0"
 gem "openai", "~> 0.70.0"
 
 gem "httparty", ">= 0.13.7"
+
+gem "grover"
