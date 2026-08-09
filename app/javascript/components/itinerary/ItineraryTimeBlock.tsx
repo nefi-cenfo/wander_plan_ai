@@ -28,7 +28,9 @@ export default function ItineraryTimeBlock({
 
   return (
     <Box sx={{ position: 'relative', display: 'flex', gap: 2.5 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         <Box
           sx={{
             width: 44,
@@ -76,7 +78,10 @@ export default function ItineraryTimeBlock({
         >
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
             <AccessTimeOutlinedIcon sx={{ color: markerColor, fontSize: 20 }} />
-            <Typography variant="overline" sx={{ color: markerColor, fontWeight: 900 }}>
+            <Typography
+              variant="overline"
+              sx={{ color: markerColor, fontWeight: 900 }}
+            >
               {label}
             </Typography>
           </Stack>
@@ -96,12 +101,22 @@ export default function ItineraryTimeBlock({
 
         <Typography
           variant="h6"
-          sx={{ display: 'flex', alignItems: 'center', gap: 1, fontWeight: 800, mb: 1 }}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            fontWeight: 800,
+            mb: 1,
+          }}
         >
           <PlaceOutlinedIcon color="primary" fontSize="small" />
           {time.place}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ lineHeight: 1.7 }}
+        >
           {time.activity.description}
         </Typography>
 

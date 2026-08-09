@@ -66,10 +66,7 @@ function Discover({
 Discover.layout = (page: ReactNode) => (
   <UserLayout
     navigationItems={menuItems}
-    breadcrumbs={[
-      { label: 'Dashboard', href: '/' },
-      { label: 'Discover' },
-    ]}
+    breadcrumbs={[{ label: 'Dashboard', href: '/' }, { label: 'Discover' }]}
   >
     {page}
   </UserLayout>

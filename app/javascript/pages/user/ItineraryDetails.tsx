@@ -65,8 +65,8 @@ function ItineraryDetails({ trip }: { trip: Trip }) {
             variant="h6"
             sx={{ color: 'rgba(255,255,255,0.86)', maxWidth: 680, mb: 3 }}
           >
-            Follow a structured daily plan with suggested places, activity notes,
-            and estimated costs for each part of the day.
+            Follow a structured daily plan with suggested places, activity
+            notes, and estimated costs for each part of the day.
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
@@ -79,7 +79,8 @@ function ItineraryDetails({ trip }: { trip: Trip }) {
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
               <LocationOnOutlinedIcon fontSize="small" />
               <Typography variant="body1" sx={{ fontWeight: 800 }}>
-                {trip.numberDays} {trip.numberDays === 1 ? 'day' : 'days'} planned
+                {trip.numberDays} {trip.numberDays === 1 ? 'day' : 'days'}{' '}
+                planned
               </Typography>
             </Stack>
           </Stack>

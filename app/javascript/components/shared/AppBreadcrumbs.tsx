@@ -3,11 +3,7 @@ import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
 import { Link as InertiaLink } from '@inertiajs/react'
 import { Breadcrumbs, Typography } from '@mui/material'
 
-export default function AppBreadcrumbs({
-  items,
-}: {
-  items: BreadcrumbItem[]
-}) {
+export default function AppBreadcrumbs({ items }: { items: BreadcrumbItem[] }) {
   if (!items.length) {
     return null
   }

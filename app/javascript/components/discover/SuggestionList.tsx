@@ -28,7 +28,8 @@ export default function SuggestionList({
             Discovery Results
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Curated places matched to your destination, timing, and travel context.
+            Curated places matched to your destination, timing, and travel
+            context.
           </Typography>
         </Box>
         <Chip

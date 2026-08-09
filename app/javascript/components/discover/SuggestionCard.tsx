@@ -5,7 +5,15 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined'
 import { Link } from '@inertiajs/react'
-import { Box, Button, Card, CardContent, Chip, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { useState } from 'react'
 
 export default function SuggestionCard({
@@ -29,7 +37,8 @@ export default function SuggestionCard({
         overflow: 'hidden',
         border: '1px solid',
         borderColor: 'divider',
-        transition: 'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
+        transition:
+          'transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease',
         '&:hover': {
           transform: 'translateY(-4px)',
           borderColor: 'primary.main',
@@ -113,7 +122,13 @@ export default function SuggestionCard({
             <Typography
               variant="caption"
               color="secondary.main"
-              sx={{ display: 'flex', alignItems: 'center', gap: 0.75, fontWeight: 800, mb: 0.5 }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                fontWeight: 800,
+                mb: 0.5,
+              }}
             >
               <LightbulbOutlinedIcon sx={{ fontSize: 17 }} />
               Local tip
@@ -141,7 +156,13 @@ export default function SuggestionCard({
             <Typography
               variant="caption"
               color="primary.dark"
-              sx={{ display: 'flex', alignItems: 'center', gap: 0.75, fontWeight: 800, mb: 0.5 }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.75,
+                fontWeight: 800,
+                mb: 0.5,
+              }}
             >
               <StickyNote2OutlinedIcon sx={{ fontSize: 17 }} />
               Good to know
