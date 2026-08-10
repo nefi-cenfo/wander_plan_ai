@@ -15,10 +15,6 @@ class PlacesController < ApplicationController
     if !saved_place
       trip_advisor_data = TripadvisorEnrichmentService.new(place_name, suggestion["city"]).call
 
-      Rails.logger.info(trip_advisor_data.inspect)
-      Rails.logger.info(place_name.inspect)
-      Rails.logger.info(suggestion["city"].inspect)
-
       tripadvisor_id = trip_advisor_data.dig(:location_details, "id")
 
       return render inertia: "errors/NotFound" unless tripadvisor_id

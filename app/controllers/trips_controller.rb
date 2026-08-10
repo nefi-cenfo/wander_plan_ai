@@ -1,4 +1,6 @@
 class TripsController < ApplicationController
+  include TripsSerializable
+
   before_action :authenticate_user!
 
   def index
@@ -44,18 +46,11 @@ class TripsController < ApplicationController
     end_date = permitted_params[:end_date].to_date
     @trip.number_days = (end_date - start_date).to_i + 1
 
-    Rails.logger.info(@trip.inspect)
-    Rails.logger.info(@trip.class.name)
-
     @destination = Destination.find_or_initialize_by(latitude: latitude, longitude: longitude)
     @destination.location = location
     suggestion_list = AiTravelPlannerService.new(@trip, @destination).call
     @itinerary = Itinerary.new(suggestions_ai: suggestion_list, plan_ai: {})
     @trip.itinerary = @itinerary
-    Rails.logger.info(@destination.inspect)
-    Rails.logger.info(@destination.class.name)
-    Rails.logger.info(@itinerary.inspect)
-    Rails.logger.info(@itinerary.class.name)
 
     if @itinerary.save && @trip.save && @destination.save
       @trip.destinations << @destination
@@ -64,8 +59,6 @@ class TripsController < ApplicationController
     else
       redirect_to new_trip_path, alert: "There was an error during trip creation"
     end
-    # puts "#{location} in #{@trip.number_days} days at #{latitude},-#{longitude}"
-    # puts JSON.pretty_generate(suggestion_list)
   end
 
   def destroy
@@ -89,47 +82,5 @@ class TripsController < ApplicationController
 
   def next_trips
     current_user.trips.next_trips
-  end
-
-  def build_trips_prop(trips)
-    trips.map do |trip|
-      {
-        id: trip.id,
-        startDate: trip.start_date,
-        endDate: trip.end_date,
-        numberDays: trip.number_days,
-        itinerary: {
-          id: trip.itinerary.id,
-          suggestions: trip.itinerary.suggestions_ai,
-          plannedDays: trip.itinerary.plan_ai
-        },
-        destination: {
-          id: trip.destinations.first.id,
-          location: trip.destinations.first.location,
-          latitude: trip.destinations.first.latitude,
-          longitude: trip.destinations.first.longitude
-        }
-      }
-    end
-  end
-
-  def build_trip_details_prop(trip)
-    {
-      id: trip.id,
-      startDate: trip.start_date,
-      endDate: trip.end_date,
-      numberDays: trip.number_days,
-      itinerary: {
-        id: trip.itinerary.id,
-        suggestions: trip.itinerary.suggestions_ai,
-        plannedDays: trip.itinerary.plan_ai
-      },
-      destination: {
-        id: trip.destinations.first.id,
-        location: trip.destinations.first.location,
-        latitude: trip.destinations.first.latitude,
-        longitude: trip.destinations.first.longitude
-      }
-    }
   end
 end
