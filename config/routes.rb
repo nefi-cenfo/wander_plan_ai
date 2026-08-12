@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   authenticated :user, ->(u) { u.role != "admin" } do
     root to: "users_dashboard#index", as: :user_root
+
+    resources :checkout, only: [ :index, :create ]
   end
 
   authenticated :user, ->(u) { u.role == "admin" } do

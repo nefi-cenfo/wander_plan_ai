@@ -13,7 +13,11 @@ class ApplicationController < ActionController::Base
           email: current_user.email,
           role: current_user.role,
           name: current_user.name,
-          lastname: current_user.lastname
+          lastname: current_user.lastname,
+          subscription: {
+            name: current_user.subscription.name,
+            premium: current_user.premium?
+          }
         } : nil
       },
       flash: {
