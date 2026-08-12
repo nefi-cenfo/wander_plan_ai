@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardContent,
+  Chip,
   Dialog,
   DialogActions,
   DialogContent,
@@ -78,18 +79,7 @@ function Trips({ trips }: { trips: Trip[] }) {
             >
               Current Itineraries
             </Typography>
-            <Typography
-              sx={{
-                width: '30px',
-                height: '22px',
-                backgroundColor: '#F3F4F6FF',
-                textAlign: 'center',
-                fontWeight: 700,
-                borderRadius: '15px',
-              }}
-            >
-              {trips.length}
-            </Typography>
+            <Chip label={trips.length} />
           </Typography>
           <Divider sx={{ mb: 4 }} />
           <Grid container spacing={3}>
