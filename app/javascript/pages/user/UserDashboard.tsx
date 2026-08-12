@@ -7,7 +7,12 @@ function UserDashboard() {
 }
 
 UserDashboard.layout = (page: ReactNode) => (
-  <UserLayout navigationItems={menuItems}>{page}</UserLayout>
+  <UserLayout
+    navigationItems={menuItems}
+    breadcrumbs={[{ label: 'Dashboard' }]}
+  >
+    {page}
+  </UserLayout>
 )
 
 export default UserDashboard

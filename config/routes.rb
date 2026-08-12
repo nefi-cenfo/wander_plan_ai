@@ -9,6 +9,17 @@ Rails.application.routes.draw do
     root to: "users_dashboard#index", as: :user_root
 
     resources :checkout, only: [ :index, :create ]
+
+    resources :trips, only: [ :new, :index, :create, :destroy ] do
+      get "itinerary", to: "itineraries#show"
+      get "itineraries/download_pdf", to: "itineraries#download_pdf"
+      get ":id", to: "trips#show"
+    end
+
+    resources :destinations, only: [] do
+      get "places/:name", to: "places#show", as: :place
+      get "enriched-data/:place", to: "places#enriched_data", as: :enriched_data
+    end
   end
 
   authenticated :user, ->(u) { u.role == "admin" } do
@@ -35,4 +46,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  match "/404", to: "errors#not_found", via: :all
 end
