@@ -189,7 +189,9 @@ function Billing() {
                   onClick={startCheckout}
                   sx={{ justifyContent: 'space-between' }}
                 >
-                  {processingCheckout ? 'Opening Stripe...' : 'Upgrade with Stripe'}
+                  {processingCheckout
+                    ? 'Opening Stripe...'
+                    : 'Upgrade with Stripe'}
                 </Button>
               </Stack>
             </CardContent>
