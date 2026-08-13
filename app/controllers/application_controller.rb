@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   inertia_share do
+    pay_subscription = current_user&.payment_processor&.subscription
     {
       auth: {
         user: current_user ? {
@@ -17,8 +18,11 @@ class ApplicationController < ActionController::Base
           name: current_user.name,
           lastname: current_user.lastname,
           subscription: {
-            name: current_user.subscription.name,
-            premium: current_user.premium?
+            plan_name: current_user.plan_name,
+            premium: current_user.premium?,
+            status: pay_subscription&.status,
+            ends_at: pay_subscription&.ends_at,
+            trial_ends_at: pay_subscription&.trial_ends_at
           }
         } : nil
       },

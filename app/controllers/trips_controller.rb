@@ -2,6 +2,7 @@ class TripsController < ApplicationController
   include TripsSerializable
 
   before_action :authenticate_user!
+  before_action :require_premium!, only: [ :create ]
 
   def index
     render inertia: "user/Trips", props: {
@@ -29,7 +30,9 @@ class TripsController < ApplicationController
     end
     render inertia: "user/Discover", props: {
       suggestion_list: suggestion_list,
-      destination: @destination
+      destination: @destination,
+      active_trips_count: current_user.active_trips_count,
+      active_trips_limit: 3
     }
   end
 
@@ -82,5 +85,9 @@ class TripsController < ApplicationController
 
   def next_trips
     current_user.trips.next_trips
+  end
+
+  def require_premium!
+    redirect_to checkout_index_path, alert: "You need a Premium subscription to access this feature." unless current_user.premium? || current_user.active_trips_count < 3
   end
 end

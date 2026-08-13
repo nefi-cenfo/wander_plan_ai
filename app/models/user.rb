@@ -17,4 +17,12 @@ class User < ApplicationRecord
   def premium?
     payment_processor&.subscribed?(processor_plan: ENV["WANDER_PLAN_PRICE"]) || false
   end
+
+  def plan_name
+    premium? ? "Premium" : "Basic"
+  end
+
+  def active_trips_count
+    trips.current_trip.count + trips.next_trips.count
+  end
 end

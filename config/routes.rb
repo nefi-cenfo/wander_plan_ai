@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   authenticated :user, ->(u) { u.role != "admin" } do
     root to: "users_dashboard#index", as: :user_root
 
-    resources :checkout, only: [ :index, :create ]
+    resources :checkout, only: [ :index, :create ] do
+      post :portal, on: :collection
+    end
 
     resources :trips, only: [ :new, :index, :create, :destroy ] do
       get "itinerary", to: "itineraries#show"

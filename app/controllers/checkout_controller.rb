@@ -20,4 +20,13 @@ class CheckoutController < ApplicationController
 
     inertia_location checkout_session.url
   end
+
+  def portal
+    payment_processor = current_user.payment_processor
+    return redirect_to checkout_index_path, alert: "No billing account found" if payment_processor.blank?
+
+    portal_session = payment_processor.billing_portal(return_url: checkout_index_url)
+
+    inertia_location portal_session.url
+  end
 end
