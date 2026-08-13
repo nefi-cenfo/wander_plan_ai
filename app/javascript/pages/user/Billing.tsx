@@ -132,7 +132,10 @@ function Billing() {
               </Typography>
             </Box>
 
-            <Stack spacing={1} sx={{ alignItems: { xs: 'flex-start', md: 'flex-end' } }}>
+            <Stack
+              spacing={1}
+              sx={{ alignItems: { xs: 'flex-start', md: 'flex-end' } }}
+            >
               <Chip
                 label={statusLabel}
                 color={isPremium ? 'primary' : 'default'}
@@ -152,7 +155,9 @@ function Billing() {
                   disabled={processingPortal}
                   onClick={openCustomerPortal}
                 >
-                  {processingPortal ? 'Opening portal...' : 'Manage subscription'}
+                  {processingPortal
+                    ? 'Opening portal...'
+                    : 'Manage subscription'}
                 </Button>
               )}
             </Stack>
