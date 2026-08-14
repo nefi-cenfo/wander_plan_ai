@@ -102,7 +102,8 @@ export default function UserLayout({
 
   const closeMobileDrawer = () => setMobileOpen(false)
 
-  const isActive = (link: string) => page.url === link || page.url.startsWith(`${link}/`)
+  const isActive = (link: string) =>
+    page.url === link || page.url.startsWith(`${link}/`)
 
   const handleLogout = () => {
     router.delete('/users/sign_out')
