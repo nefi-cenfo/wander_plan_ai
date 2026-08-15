@@ -15,6 +15,8 @@ import Tooltip from '@mui/material/Tooltip'
 import { alpha, useTheme } from '@mui/material/styles'
 import type { SxProps, Theme } from '@mui/material'
 import { ReactNode, useState } from 'react'
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 import { Link, router, usePage } from '@inertiajs/react'
@@ -23,6 +25,7 @@ import { NavigationItem } from '@/types/navigation-item'
 import { BreadcrumbItem } from '@/types/breadcrumb'
 import AppBreadcrumbs from './AppBreadcrumbs'
 import appLogo from '@/assets/app_logo.png'
+import { useThemeMode } from '@/theme/ThemeModeContext'
 
 const drawerWidth = 280
 
@@ -95,6 +98,7 @@ export default function UserLayout({
   children: ReactNode
 }) {
   const theme = useTheme()
+  const { mode, toggleThemeMode } = useThemeMode()
   const page = usePage()
   const user = page.props.auth.user
   const initials = user ? `${user.name[0] ?? ''}${user.lastname[0] ?? ''}` : ''
@@ -281,6 +285,29 @@ export default function UserLayout({
               Plan smarter trips with curated destinations and itineraries.
             </Typography>
           </Box>
+          <Tooltip
+            title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            <IconButton
+              color="inherit"
+              onClick={toggleThemeMode}
+              aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              sx={{
+                bgcolor: alpha(theme.palette.primary.main, 0.08),
+                border: 1,
+                borderColor: alpha(theme.palette.primary.main, 0.16),
+                color: 'primary.main',
+                height: 38,
+                width: 38,
+                '&:hover': {
+                  bgcolor: alpha(theme.palette.primary.main, 0.14),
+                  borderColor: alpha(theme.palette.primary.main, 0.28),
+                },
+              }}
+            >
+              {mode === 'dark' ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
+            </IconButton>
+          </Tooltip>
           <Tooltip title={user ? `${user.name} ${user.lastname}` : 'User'}>
             <Avatar
               sx={{
