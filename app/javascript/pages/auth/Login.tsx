@@ -82,7 +82,11 @@ export default function Login() {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ mt: 2, maxWidth: 320, color: 'rgba(255, 255, 255, 0.78)' }}
+                sx={{
+                  mt: 2,
+                  maxWidth: 320,
+                  color: 'rgba(255, 255, 255, 0.78)',
+                }}
               >
                 Pick up where you left off and turn ideas into polished travel
                 plans.
@@ -92,7 +96,12 @@ export default function Login() {
 
           <Typography
             variant="overline"
-            sx={{ position: 'relative', zIndex: 1, letterSpacing: 2, opacity: 0.78 }}
+            sx={{
+              position: 'relative',
+              zIndex: 1,
+              letterSpacing: 2,
+              opacity: 0.78,
+            }}
           >
             WanderPlan AI
           </Typography>

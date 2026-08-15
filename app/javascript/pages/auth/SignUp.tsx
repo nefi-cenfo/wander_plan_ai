@@ -108,7 +108,11 @@ export default function SignUp() {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ mt: 2, maxWidth: 330, color: 'rgba(255, 255, 255, 0.78)' }}
+                sx={{
+                  mt: 2,
+                  maxWidth: 330,
+                  color: 'rgba(255, 255, 255, 0.78)',
+                }}
               >
                 Save ideas, discover places, and generate itinerary drafts from
                 one WanderPlan account.
@@ -116,7 +120,11 @@ export default function SignUp() {
             </Box>
           </Stack>
 
-          <Stack direction="row" spacing={1.5} sx={{ position: 'relative', zIndex: 1 }}>
+          <Stack
+            direction="row"
+            spacing={1.5}
+            sx={{ position: 'relative', zIndex: 1 }}
+          >
             {['Discover', 'Plan', 'Go'].map((step) => (
               <Box
                 key={step}
