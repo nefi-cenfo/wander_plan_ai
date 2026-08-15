@@ -10,10 +10,7 @@ import lightTheme from '@/theme/lightTheme'
 import darkTheme from '@/theme/darkTheme'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import GlobalLoader from '@/components/shared/GlobalLoader'
-import {
-  ThemeMode,
-  ThemeModeContext,
-} from '@/theme/ThemeModeContext'
+import { ThemeMode, ThemeModeContext } from '@/theme/ThemeModeContext'
 
 const googleMapsKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 const themeModeStorageKey = 'wanderplan-theme-mode'

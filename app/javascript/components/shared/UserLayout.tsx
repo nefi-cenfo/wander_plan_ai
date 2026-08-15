@@ -286,12 +286,16 @@ export default function UserLayout({
             </Typography>
           </Box>
           <Tooltip
-            title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={
+              mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+            }
           >
             <IconButton
               color="inherit"
               onClick={toggleThemeMode}
-              aria-label={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              aria-label={
+                mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+              }
               sx={{
                 bgcolor: alpha(theme.palette.primary.main, 0.08),
                 border: 1,
@@ -305,7 +309,11 @@ export default function UserLayout({
                 },
               }}
             >
-              {mode === 'dark' ? <LightModeRoundedIcon /> : <DarkModeRoundedIcon />}
+              {mode === 'dark' ? (
+                <LightModeRoundedIcon />
+              ) : (
+                <DarkModeRoundedIcon />
+              )}
             </IconButton>
           </Tooltip>
           <Tooltip title={user ? `${user.name} ${user.lastname}` : 'User'}>
