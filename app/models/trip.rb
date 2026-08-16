@@ -8,4 +8,5 @@ class Trip < ApplicationRecord
   validates :end_date, presence: true
 
   scope :next_trips, -> { where("start_date > ?", Date.current) }
+  scope :current_trip, -> { where("start_date <= ? AND end_date >= ?", Date.current, Date.current) }
 end

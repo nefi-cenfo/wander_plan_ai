@@ -23,6 +23,6 @@ export const menuItems: NavigationItem[] = [
   {
     name: 'Billing',
     icon: CreditCardRoundedIcon,
-    link: '/',
+    link: '/checkout',
   },
 ]

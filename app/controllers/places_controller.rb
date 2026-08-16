@@ -9,15 +9,20 @@ class PlacesController < ApplicationController
     suggestion = find_suggestion(place_name)
 
     return render inertia: "errors/NotFound" unless @destination
+    return render inertia: "errors/NotFound", status: :not_found unless suggestion
 
     saved_place = @destination.saved_places.find_by_name(place_name)
 
     if !saved_place
       trip_advisor_data = TripadvisorEnrichmentService.new(place_name, suggestion["city"]).call
 
-      tripadvisor_id = trip_advisor_data.dig(:location_details, "id")
+      tripadvisor_id = trip_advisor_data&.dig(:location_details, "id")
 
-      return render inertia: "errors/NotFound" unless tripadvisor_id
+      unless tripadvisor_id
+        return render inertia: "errors/TripadvisorUnavailable",
+                      props: { place_name: place_name },
+                      status: :not_found
+      end
 
       saved_place = SavedPlace.new(tripadvisor_id: tripadvisor_id, name: place_name, enriched_data: trip_advisor_data)
       @destination.saved_places << saved_place

@@ -7,11 +7,9 @@ import { menuItems } from '@/utils/user-navigation-items'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
-import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined'
 import {
   Alert,
   Box,
-  Button,
   Card,
   CardContent,
   Divider,
@@ -19,10 +17,13 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
-import { Link } from '@inertiajs/react'
 import { ReactElement } from 'react'
+import ItineraryCTACard from './ItineraryCTACard'
+import { usePage } from '@inertiajs/react'
 
 function TripDetails({ trip }: { trip: Trip }) {
+  const { auth } = usePage().props
+  const subscription = auth.user?.subscription
   const suggestions = trip.itinerary?.suggestions || []
 
   return (
@@ -46,56 +47,10 @@ function TripDetails({ trip }: { trip: Trip }) {
 
         <Grid size={{ xs: 12, lg: 4 }}>
           <Stack spacing={2}>
-            <Card
-              elevation={0}
-              sx={{
-                overflow: 'hidden',
-                border: '1px solid',
-                borderColor: 'divider',
-                background:
-                  'linear-gradient(135deg, rgba(14,165,164,0.12), rgba(37,99,235,0.08))',
-              }}
-            >
-              <CardContent>
-                <Stack
-                  direction="row"
-                  spacing={1.5}
-                  sx={{ mb: 2, alignItems: 'center' }}
-                >
-                  <Box
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      display: 'grid',
-                      placeItems: 'center',
-                      borderRadius: 2,
-                      color: 'primary.contrastText',
-                      backgroundColor: 'primary.main',
-                    }}
-                  >
-                    <RouteOutlinedIcon />
-                  </Box>
-                  <Box>
-                    <Typography variant="h5" sx={{ fontWeight: 800 }}>
-                      Itinerary
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Turn suggestions into a day-by-day route.
-                    </Typography>
-                  </Box>
-                </Stack>
-                <Button
-                  variant="contained"
-                  fullWidth
-                  endIcon={<ExploreOutlinedIcon />}
-                  LinkComponent={Link}
-                  href={`/trips/${trip.id}/itinerary`}
-                  sx={{ justifyContent: 'space-between' }}
-                >
-                  Open Itinerary
-                </Button>
-              </CardContent>
-            </Card>
+            <ItineraryCTACard
+              trip={trip}
+              isPremium={subscription?.premium ?? false}
+            />
 
             <Card
               elevation={0}
