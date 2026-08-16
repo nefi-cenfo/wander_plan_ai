@@ -18,7 +18,7 @@ import {
   Typography,
 } from '@mui/material'
 import { ReactElement } from 'react'
-import ItineraryCTACard from './ItineraryCTACard'
+import ItineraryCTACard from '../../components/itinerary/ItineraryCTACard'
 import { usePage } from '@inertiajs/react'
 
 function TripDetails({ trip }: { trip: Trip }) {

@@ -42,13 +42,15 @@ function Trips({ trips }: { trips: Trip[] }) {
 
   return (
     <>
-      <Typography
-        variant="h2"
-        sx={{ display: 'flex', justifyContent: 'space-between' }}
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        sx={{ justifyContent: 'space-between', alignItems: { xs: 'stretch', sm: 'center' } }}
       >
         <Typography
+          variant="h2"
           sx={{
-            fontSize: '2rem',
+            fontSize: { xs: '1.75rem', md: '2rem' },
             fontWeight: 'bold',
           }}
         >
@@ -60,34 +62,36 @@ function Trips({ trips }: { trips: Trip[] }) {
           variant="contained"
           startIcon={<AddIcon />}
           size="large"
+          sx={{ alignSelf: { xs: 'stretch', sm: 'center' } }}
         >
           New Trip
         </Button>
-      </Typography>
+      </Stack>
       <Typography variant="body1" sx={{ marginBlock: 2 }}>
         Manage your planned itineraries and bucket list destinations.
       </Typography>
       {trips.length > 0 && (
         <Box>
-          <Typography
-            variant="h3"
-            sx={{ display: 'flex', alignItems: 'baseline', mb: 2 }}
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={1.5}
+            sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, mb: 2 }}
           >
             <Typography
+              variant="h3"
               sx={{
-                fontSize: '1.5rem',
+                fontSize: { xs: '1.25rem', md: '1.5rem' },
                 fontWeight: 'bold',
-                mr: 2,
               }}
             >
               Current Itineraries
             </Typography>
-            <Chip label={trips.length} />
-          </Typography>
+            <Chip label={trips.length} sx={{ fontWeight: 700 }} />
+          </Stack>
           <Divider sx={{ mb: 4 }} />
           <Grid container spacing={3}>
             {trips.map((trip, index) => (
-              <Grid key={index} size={4}>
+              <Grid key={index} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <TripCard trip={trip} onDelete={showDialog} />
               </Grid>
             ))}
@@ -178,8 +182,8 @@ function Trips({ trips }: { trips: Trip[] }) {
                   <Box
                     sx={(theme) => ({
                       position: 'absolute',
-                      width: { xs: 210, md: 280 },
-                      height: { xs: 210, md: 280 },
+                      width: { xs: 180, sm: 230, md: 280 },
+                      height: { xs: 180, sm: 230, md: 280 },
                       borderRadius: '50%',
                       background: `radial-gradient(circle, ${theme.palette.secondary.main}24, ${theme.palette.primary.main}12 55%, transparent 70%)`,
                     })}
@@ -191,13 +195,16 @@ function Trips({ trips }: { trips: Trip[] }) {
                     sx={{
                       position: 'relative',
                       width: '100%',
-                      maxWidth: { xs: 260, md: 360 },
+                      maxWidth: { xs: 220, sm: 280, md: 360 },
                     }}
                   />
                 </Box>
 
                 <Box sx={{ maxWidth: 560, textAlign: 'center' }}>
-                  <Typography variant="h4" sx={{ fontWeight: 800, mb: 1 }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontSize: { xs: '1.5rem', md: '2.125rem' }, fontWeight: 800, mb: 1 }}
+                  >
                     No trips saved yet
                   </Typography>
                   <Typography
@@ -218,6 +225,7 @@ function Trips({ trips }: { trips: Trip[] }) {
                   startIcon={<TravelExploreIcon />}
                   disableElevation
                   sx={(theme) => ({
+                    width: { xs: '100%', sm: 'auto' },
                     px: 3,
                     py: 1.25,
                     borderRadius: 2,
@@ -321,12 +329,20 @@ function Trips({ trips }: { trips: Trip[] }) {
             </Typography>
           </DialogContentText>
         </DialogContent>
-        <DialogActions sx={{ gap: 1.5, p: 3, pt: 1 }}>
+        <DialogActions
+          sx={{
+            gap: 1.5,
+            p: 3,
+            pt: 1,
+            flexDirection: { xs: 'column-reverse', sm: 'row' },
+            '& > :not(style) ~ :not(style)': { ml: { xs: 0, sm: 1.5 } },
+          }}
+        >
           <Button
             onClick={() => handleDialog(false)}
             autoFocus
             variant="outlined"
-            sx={{ borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
+            sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
           >
             Cancel
           </Button>
@@ -336,7 +352,7 @@ function Trips({ trips }: { trips: Trip[] }) {
             color="error"
             startIcon={<DeleteIcon />}
             disableElevation
-            sx={{ borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
+            sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
           >
             Delete trip
           </Button>
