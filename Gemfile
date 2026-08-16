@@ -75,6 +75,9 @@ end
 
 gem "devise", "~> 5.0"
 
+gem "pay"
+gem "stripe"
+
 gem "openai", "~> 0.70.0"
 
 gem "httparty", ">= 0.13.7"

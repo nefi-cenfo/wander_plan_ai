@@ -9,6 +9,13 @@ export type User = {
   role: string
   name: string
   lastname: string
+  subscription: {
+    premium: boolean
+    status?: string
+    plan_name: string
+    ends_at?: string
+    trial_ends_at?: string
+  }
 }
 
 export type SharedProps = {

@@ -92,7 +92,8 @@ function PlaceDetails({
               About this place
             </Typography>
             <Typography variant="body1" sx={{ mb: 4 }}>
-              {location_details.descriptions[0]?.value}
+              {location_details.descriptions[0]?.value ??
+                suggestion.description}
             </Typography>
             <Box sx={{ mb: 4 }}>
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>

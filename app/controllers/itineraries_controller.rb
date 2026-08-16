@@ -2,6 +2,7 @@ class ItinerariesController < ApplicationController
   include TripsSerializable
 
   before_action :authenticate_user!
+  before_action :require_premium!
 
   def show
     trip_id = params[:trip_id]
@@ -44,5 +45,11 @@ class ItinerariesController < ApplicationController
               filename: "WanderPlan_#{@destination.location}_PocketMode.pdf",
               type: "application/pdf",
               disposition: "attachment"
+  end
+
+  private
+
+  def require_premium!
+    redirect_to checkout_index_path, alert: "You need a Premium subscription to access this feature." unless current_user.premium?
   end
 end
