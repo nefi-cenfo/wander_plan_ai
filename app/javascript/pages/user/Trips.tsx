@@ -45,7 +45,10 @@ function Trips({ trips }: { trips: Trip[] }) {
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         spacing={2}
-        sx={{ justifyContent: 'space-between', alignItems: { xs: 'stretch', sm: 'center' } }}
+        sx={{
+          justifyContent: 'space-between',
+          alignItems: { xs: 'stretch', sm: 'center' },
+        }}
       >
         <Typography
           variant="h2"
@@ -203,7 +206,11 @@ function Trips({ trips }: { trips: Trip[] }) {
                 <Box sx={{ maxWidth: 560, textAlign: 'center' }}>
                   <Typography
                     variant="h4"
-                    sx={{ fontSize: { xs: '1.5rem', md: '2.125rem' }, fontWeight: 800, mb: 1 }}
+                    sx={{
+                      fontSize: { xs: '1.5rem', md: '2.125rem' },
+                      fontWeight: 800,
+                      mb: 1,
+                    }}
                   >
                     No trips saved yet
                   </Typography>
@@ -342,7 +349,12 @@ function Trips({ trips }: { trips: Trip[] }) {
             onClick={() => handleDialog(false)}
             autoFocus
             variant="outlined"
-            sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              borderRadius: 2,
+              fontWeight: 800,
+              textTransform: 'none',
+            }}
           >
             Cancel
           </Button>
@@ -352,7 +364,12 @@ function Trips({ trips }: { trips: Trip[] }) {
             color="error"
             startIcon={<DeleteIcon />}
             disableElevation
-            sx={{ width: { xs: '100%', sm: 'auto' }, borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
+            sx={{
+              width: { xs: '100%', sm: 'auto' },
+              borderRadius: 2,
+              fontWeight: 800,
+              textTransform: 'none',
+            }}
           >
             Delete trip
           </Button>
