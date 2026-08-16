@@ -1,0 +1,24 @@
+import { createContext, useContext } from 'react'
+
+export type ThemeMode = 'light' | 'dark'
+
+export type ThemeModeContextValue = {
+  mode: ThemeMode
+  toggleThemeMode: () => void
+}
+
+export const ThemeModeContext = createContext<ThemeModeContextValue | null>(
+  null,
+)
+
+export function useThemeMode() {
+  const context = useContext(ThemeModeContext)
+
+  if (!context) {
+    throw new Error(
+      'useThemeMode must be used within ThemeModeContext.Provider',
+    )
+  }
+
+  return context
+}

@@ -17,6 +17,7 @@ import {
 } from '@mui/material'
 import dayjs from 'dayjs'
 import { ReactElement, useState } from 'react'
+import ScrollTopButton from '@/components/shared/ScrollTopButton'
 
 function ItineraryDetails({ trip }: { trip: Trip }) {
   const [downloadingPdf, setDownloadingPdf] = useState(false)
@@ -150,6 +151,7 @@ function ItineraryDetails({ trip }: { trip: Trip }) {
           the AI planner finishes generating your route.
         </Alert>
       )}
+      <ScrollTopButton />
     </>
   )
 }

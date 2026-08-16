@@ -46,20 +46,18 @@ export default function LoginForm() {
       <Typography
         variant="h4"
         component="h1"
-        gutterBottom
         align="center"
-        sx={{ color: 'primary.main', fontWeight: 'bold' }}
+        sx={{ color: 'text.primary', fontWeight: 800, letterSpacing: -0.5 }}
       >
-        WanderPlan
+        Welcome back
       </Typography>
       <Typography
         variant="subtitle1"
-        gutterBottom
         align="center"
         color="text.secondary"
-        sx={{ marginBottom: 3 }}
+        sx={{ mt: 1, mb: 4 }}
       >
-        Log in to continue your journey
+        Log in to continue your WanderPlan journey
       </Typography>
 
       {flash.alert && (
@@ -80,6 +78,12 @@ export default function LoginForm() {
         error={!!errors['user.email']}
         helperText={errors['user.email']}
         autoFocus
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 2,
+            backgroundColor: 'background.default',
+          },
+        }}
       />
 
       <TextField
@@ -93,6 +97,12 @@ export default function LoginForm() {
         onChange={(e) => setData('user.password', e.target.value)}
         error={!!errors['user.password']}
         helperText={errors['user.password']}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 2,
+            backgroundColor: 'background.default',
+          },
+        }}
       />
 
       <Button
@@ -101,7 +111,23 @@ export default function LoginForm() {
         size="large"
         fullWidth
         disabled={processing}
-        sx={{ mt: 4, py: 1.5 }}
+        disableElevation
+        sx={(theme) => ({
+          mt: 4,
+          py: 1.5,
+          borderRadius: 2,
+          fontWeight: 700,
+          textTransform: 'none',
+          background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+          boxShadow: `0 14px 30px ${theme.palette.primary.main}33`,
+          '&:hover': {
+            boxShadow: `0 18px 36px ${theme.palette.primary.main}40`,
+          },
+          '&.Mui-disabled': {
+            background: theme.palette.action.disabledBackground,
+            boxShadow: 'none',
+          },
+        })}
       >
         {processing ? 'Validating...' : 'Log In'}
       </Button>

@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Stack,
   Typography,
 } from '@mui/material'
 import dayjs from 'dayjs'
@@ -42,10 +43,13 @@ export default function TripCard({
       const response = await fetch(url)
       const enrichedData = await response.json()
       const { location_photos } = enrichedData
+      const firstPhoto = location_photos?.[0]
+
+      if (!firstPhoto?.photo?.original_size_url) return
 
       setPlacePhoto({
-        photoSource: location_photos[0].photo.original_size_url,
-        caption: location_photos[0].caption,
+        photoSource: firstPhoto.photo.original_size_url,
+        caption: firstPhoto.caption || suggestion.name,
       })
     }
   }
@@ -55,13 +59,46 @@ export default function TripCard({
   }, [])
 
   return (
-    <Card>
-      <Box sx={{ position: 'relative' }}>
+    <Card
+      elevation={0}
+      sx={(theme) => ({
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+        border: `1px solid ${theme.palette.divider}`,
+        backgroundColor: 'background.paper',
+        boxShadow:
+          theme.palette.mode === 'dark'
+            ? '0 16px 42px rgba(0, 0, 0, 0.22)'
+            : '0 16px 42px rgba(14, 165, 164, 0.08)',
+        transition: theme.transitions.create(['box-shadow', 'transform'], {
+          duration: theme.transitions.duration.short,
+        }),
+        '&:hover': {
+          transform: 'translateY(-4px)',
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? '0 22px 54px rgba(0, 0, 0, 0.32)'
+              : '0 22px 54px rgba(37, 99, 235, 0.14)',
+        },
+        '&:hover .trip-card-media': {
+          transform: 'scale(1.04)',
+        },
+      })}
+    >
+      <Box sx={{ position: 'relative', overflow: 'hidden' }}>
         <CardMedia
+          className="trip-card-media"
           sx={{
             height: 230,
+            backgroundColor: 'background.default',
             borderTopLeftRadius: 'inherit',
             borderTopRightRadius: 'inherit',
+            transition: (theme) =>
+              theme.transitions.create('transform', {
+                duration: theme.transitions.duration.standard,
+              }),
           }}
           image={placePhoto?.photoSource}
           title={placePhoto?.caption}
@@ -71,25 +108,26 @@ export default function TripCard({
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(180deg, rgba(0,0,0,0.1) 35%, rgba(0,0,0,0.72) 100%)',
+              'linear-gradient(180deg, rgba(0,0,0,0.08) 20%, rgba(0,0,0,0.35) 58%, rgba(0,0,0,0.82) 100%)',
             borderTopLeftRadius: 'inherit',
             borderTopRightRadius: 'inherit',
           }}
         />
         <Box
-          sx={{
+          sx={(theme) => ({
             position: 'absolute',
             top: 14,
             right: 14,
             px: 1.5,
-            py: 0.5,
+            py: 0.75,
             borderRadius: 999,
             backgroundColor: 'background.paper',
-            color: 'text.primary',
+            color: 'primary.main',
             fontSize: '0.875rem',
             fontWeight: 700,
             lineHeight: 1,
-          }}
+            boxShadow: `0 10px 24px ${theme.palette.primary.main}24`,
+          })}
         >
           {dayjs(trip.startDate).format('MMM')}
         </Box>
@@ -102,47 +140,82 @@ export default function TripCard({
             display: 'flex',
             alignItems: 'center',
             gap: 0.75,
+            maxWidth: 'calc(100% - 32px)',
             color: 'common.white',
             fontWeight: 700,
             textShadow: '0 1px 2px rgba(0,0,0,0.45)',
           }}
         >
           <LocationOnOutlinedIcon sx={{ fontSize: 18 }} />
-          {suggestion?.name ?? trip.destination.location}
+          <Box
+            component="span"
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {suggestion?.name ?? trip.destination.location}
+          </Box>
         </Typography>
       </Box>
-      <CardContent>
+      <CardContent sx={{ flexGrow: 1, p: 2.5, '&:last-child': { pb: 2.5 } }}>
         <Typography
           gutterBottom
           variant="h5"
           component="div"
-          sx={{ fontWeight: 700 }}
+          sx={{ fontWeight: 800, lineHeight: 1.2 }}
         >
           {trip.destination.location}
         </Typography>
-        <Typography variant="body2">
-          <CalendarTodayIcon sx={{ mr: 1 }} />
-          {`${startDateFormatted} - ${endDateFormatted}`}
-        </Typography>
+        <Stack
+          direction="row"
+          spacing={1}
+          sx={{
+            alignItems: 'center',
+            width: 'fit-content',
+            px: 1.25,
+            py: 0.75,
+            borderRadius: 2,
+            backgroundColor: 'background.default',
+            color: 'text.secondary',
+          }}
+        >
+          <CalendarTodayIcon sx={{ fontSize: 17 }} />
+          <Typography variant="body2" sx={{ fontWeight: 700 }}>
+            {`${startDateFormatted} - ${endDateFormatted}`}
+          </Typography>
+        </Stack>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ gap: 1.25, p: 2.5, pt: 0 }}>
         <Button
           LinkComponent={Link}
           href={`/trips/show/${trip.id}`}
-          variant="outlined"
+          variant="contained"
           startIcon={<VisibilityOutlinedIcon />}
-          sx={{ flexGrow: 1 }}
+          disableElevation
+          sx={(theme) => ({
+            flexGrow: 1,
+            borderRadius: 2,
+            fontWeight: 800,
+            textTransform: 'none',
+            background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+            boxShadow: `0 10px 24px ${theme.palette.primary.main}24`,
+            '&:hover': {
+              boxShadow: `0 14px 30px ${theme.palette.primary.main}30`,
+            },
+          })}
         >
           View Trip
         </Button>
         <Button
           variant="text"
           startIcon={<DeleteIcon />}
-          sx={{ flexGrow: 1 }}
+          sx={{ borderRadius: 2, fontWeight: 700, textTransform: 'none' }}
           color="error"
           onClick={() => onDelete(trip)}
         >
-          Delete Adventure
+          Delete
         </Button>
       </CardActions>
     </Card>

@@ -72,3 +72,9 @@ CI runs Brakeman, bundler-audit, importmap audit, RuboCop, Rails tests, and syst
 - `tmp/`, `log/`, `storage/`, `public/assets`, `public/vite*`, `.bundle`, and `node_modules` are generated or local-only paths.
 - The README mentions Stripe, TripAdvisor, and AI provider integrations, but no `app/services` files were found during this review. Verify implementation before depending on those APIs.
 - The Dockerfile is production-oriented; use `bin/dev`/`bin/setup` for local development unless the task is deployment-related.
+
+When answering questions about Material UI or MUI X:
+
+1. Use the `mui-mcp` tools to retrieve the relevant official documentation.
+2. Fetch additional documentation only from URLs returned by those tools.
+3. Base generated MUI code on the retrieved documentation.

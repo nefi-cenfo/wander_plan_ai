@@ -1,6 +1,14 @@
 import { useForm, usePage } from '@inertiajs/react'
 import { Alert, Box, Button, TextField, Typography } from '@mui/material'
+import type { SxProps, Theme } from '@mui/material'
 import React from 'react'
+
+const textFieldSx: SxProps<Theme> = {
+  '& .MuiOutlinedInput-root': {
+    borderRadius: 2,
+    backgroundColor: 'background.default',
+  },
+}
 
 export default function SignUpForm() {
   const { flash } = usePage()
@@ -72,20 +80,18 @@ export default function SignUpForm() {
       <Typography
         variant="h4"
         component="h1"
-        gutterBottom
         align="center"
-        sx={{ color: 'primary.main', fontWeight: 'bold' }}
+        sx={{ color: 'text.primary', fontWeight: 800, letterSpacing: -0.5 }}
       >
-        WanderPlan
+        Create your account
       </Typography>
       <Typography
         variant="subtitle1"
-        gutterBottom
         align="center"
         color="text.secondary"
-        sx={{ marginBottom: 3 }}
+        sx={{ mt: 1, mb: 4 }}
       >
-        Create your account to start planning
+        Start planning smarter trips with WanderPlan
       </Typography>
 
       {flash.alert && (
@@ -106,6 +112,7 @@ export default function SignUpForm() {
         error={!!errors['user.name']}
         helperText={errors['user.name']}
         autoFocus
+        sx={textFieldSx}
       />
 
       <TextField
@@ -119,6 +126,7 @@ export default function SignUpForm() {
         onChange={(e) => setData('user.lastname', e.target.value)}
         error={!!errors['user.lastname']}
         helperText={errors['user.lastname']}
+        sx={textFieldSx}
       />
 
       <TextField
@@ -132,6 +140,7 @@ export default function SignUpForm() {
         onChange={(e) => setData('user.email', e.target.value)}
         error={!!errors['user.email']}
         helperText={errors['user.email']}
+        sx={textFieldSx}
       />
 
       <TextField
@@ -145,6 +154,7 @@ export default function SignUpForm() {
         onChange={(e) => setData('user.password', e.target.value)}
         error={!!errors['user.password']}
         helperText={errors['user.password']}
+        sx={textFieldSx}
       />
 
       <TextField
@@ -158,6 +168,7 @@ export default function SignUpForm() {
         onChange={(e) => setData('user.password_confirmation', e.target.value)}
         error={!!errors['user.password_confirmation']}
         helperText={errors['user.password_confirmation']}
+        sx={textFieldSx}
       />
 
       <Button
@@ -166,7 +177,23 @@ export default function SignUpForm() {
         size="large"
         fullWidth
         disabled={processing}
-        sx={{ mt: 4, py: 1.5 }}
+        disableElevation
+        sx={(theme) => ({
+          mt: 4,
+          py: 1.5,
+          borderRadius: 2,
+          fontWeight: 700,
+          textTransform: 'none',
+          background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+          boxShadow: `0 14px 30px ${theme.palette.secondary.main}30`,
+          '&:hover': {
+            boxShadow: `0 18px 36px ${theme.palette.secondary.main}3D`,
+          },
+          '&.Mui-disabled': {
+            background: theme.palette.action.disabledBackground,
+            boxShadow: 'none',
+          },
+        })}
       >
         {processing ? 'Creating account...' : 'Sign Up'}
       </Button>

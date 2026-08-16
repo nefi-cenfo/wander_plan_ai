@@ -1,16 +1,45 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
+import { ReactNode, useEffect, useState } from 'react'
 
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import lightTheme from '@/theme/lightTheme'
+import darkTheme from '@/theme/darkTheme'
 import { APIProvider } from '@vis.gl/react-google-maps'
 import GlobalLoader from '@/components/shared/GlobalLoader'
-// import darkTheme from '@/theme/darkTheme'
+import { ThemeMode, ThemeModeContext } from '@/theme/ThemeModeContext'
 
 const googleMapsKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+const themeModeStorageKey = 'wanderplan-theme-mode'
+
+function getStoredThemeMode(): ThemeMode {
+  const storedMode = window.localStorage.getItem(themeModeStorageKey)
+
+  return storedMode === 'dark' ? 'dark' : 'light'
+}
+
+function ThemeModeProvider({ children }: { children: ReactNode }) {
+  const [mode, setMode] = useState<ThemeMode>(getStoredThemeMode)
+  const theme = mode === 'dark' ? darkTheme : lightTheme
+
+  useEffect(() => {
+    window.localStorage.setItem(themeModeStorageKey, mode)
+    document.documentElement.dataset.theme = mode
+  }, [mode])
+
+  const toggleThemeMode = () => {
+    setMode((currentMode) => (currentMode === 'dark' ? 'light' : 'dark'))
+  }
+
+  return (
+    <ThemeModeContext.Provider value={{ mode, toggleThemeMode }}>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </ThemeModeContext.Provider>
+  )
+}
 
 void createInertiaApp({
   pages: '../pages',
@@ -33,7 +62,7 @@ void createInertiaApp({
     }
     createRoot(el).render(
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={lightTheme}>
+        <ThemeModeProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <APIProvider apiKey={googleMapsKey}>
               <CssBaseline />
@@ -41,7 +70,7 @@ void createInertiaApp({
               <App {...props} />
             </APIProvider>
           </LocalizationProvider>
-        </ThemeProvider>
+        </ThemeModeProvider>
       </StyledEngineProvider>,
     )
   },
