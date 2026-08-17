@@ -7,12 +7,12 @@ export const menuItems: NavigationItem[] = [
   {
     name: 'Overview',
     icon: InsertChartOutlinedRoundedIcon,
-    link: '/',
+    link: '/admin/dashboard',
   },
   {
     name: 'User Management',
     icon: PeopleAltRoundedIcon,
-    link: '/',
+    link: '/admin/user-management',
   },
   {
     name: 'Public View',

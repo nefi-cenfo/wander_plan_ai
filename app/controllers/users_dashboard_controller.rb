@@ -1,6 +1,8 @@
 class UsersDashboardController < ApplicationController
   include TripsSerializable
 
+  before_action :authenticate_user!
+
   def index
     render inertia: "user/UserDashboard", props: {
       featured_trip: featured_trip ? build_trip_details_prop(featured_trip) : nil,

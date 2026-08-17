@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   authenticated :user, ->(u) { u.role == "admin" } do
     scope :admin do
       get "dashboard", to: "admins_dashboard#index", as: :admin_dashboard
+      get "user-management", to: "user_management#index", as: :user_management
     end
   end
 
