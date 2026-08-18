@@ -38,7 +38,7 @@ class ItinerariesController < ApplicationController
       template: "itineraries/pocket_mode_pdf",
       layout: false,
       locals: { trip: @trip, destination: @destination, daily_schedule: @daily_schedule }
-    )
+    ).encode("UTF-8")
     pdf = Grover.new(html).to_pdf
 
     send_data pdf,
