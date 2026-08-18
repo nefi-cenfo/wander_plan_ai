@@ -1,7 +1,8 @@
 class AiTravelPlannerService
-  def initialize(trip, destination)
+  def initialize(trip, destination, interests = [])
     @trip = trip
     @destination = destination
+    @interests = interests.take(3)
     @client = OpenAI::Client.new(api_key: ENV["OPENAI_API_KEY"])
   end
 
@@ -29,7 +30,7 @@ class AiTravelPlannerService
   private
 
   def system_prompt
-    <<~PROMPT
+    base_prompt = <<~PROMPT
       You are an expert AI travel planner and geographical data extraction API.#{' '}
       Your sole purpose is to generate highly accurate, localized, and structured travel itineraries.
 
@@ -45,6 +46,16 @@ class AiTravelPlannerService
       - country (string): The official name of the country.
       - city (string): The specific city or town.
     PROMPT
+
+    if @interests.any?
+      base_prompt += <<~INTERESTS
+
+        CRITICAL INSTRUCTION: The user has specified the following travel interests: #{@interests.join(', ')}.
+        You must heavily bias your attraction selection, restaurant suggestions, and daily pacing to align with these exact preferences.
+      INTERESTS
+    end
+
+    base_prompt
   end
 
   def user_prompt

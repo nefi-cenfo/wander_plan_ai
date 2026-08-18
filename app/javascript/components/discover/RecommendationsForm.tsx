@@ -1,10 +1,28 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Chip, Stack, Typography } from '@mui/material'
 import { useState } from 'react'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import dayjs from 'dayjs'
 import PlaceAutocomplete from './PlaceAutocomplete'
 import { useForm } from '@inertiajs/react'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+
+const interestOptions = [
+  'History',
+  'Culture',
+  'Nature',
+  'Food',
+  'Art',
+  'Adventure',
+  'Nightlife',
+  'Shopping',
+  'Family',
+  'Beaches',
+  'Museums',
+  'Landmarks',
+  'Wellness',
+]
+
+const maximumInterests = 3
 
 export default function RecommendationsForm() {
   const { data, setData, post, processing, errors, setError, clearErrors } =
@@ -15,6 +33,7 @@ export default function RecommendationsForm() {
         location: '',
         latitude: 0,
         longitude: 0,
+        interests: [] as string[],
       },
     })
   const [selectedPlace, setSelectedPlace] =
@@ -71,6 +90,24 @@ export default function RecommendationsForm() {
     return isValid
   }
 
+  const handleInterestToggle = (interest: string) => {
+    const selectedInterests = data.trip.interests
+
+    if (selectedInterests.includes(interest)) {
+      setData(
+        'trip.interests',
+        selectedInterests.filter(
+          (selectedInterest) => selectedInterest !== interest,
+        ),
+      )
+      return
+    }
+
+    if (selectedInterests.length < maximumInterests) {
+      setData('trip.interests', [...selectedInterests, interest])
+    }
+  }
+
   const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
 
@@ -108,6 +145,75 @@ export default function RecommendationsForm() {
             Select a destination and travel dates to generate personalized
             ideas.
           </Typography>
+        </Box>
+
+        <Box>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={0.75}
+            sx={{
+              justifyContent: 'space-between',
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              mb: 1.25,
+            }}
+          >
+            <Typography variant="subtitle2" sx={{ fontWeight: 800 }}>
+              Travel interests
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              Choose up to {maximumInterests} interests ·{' '}
+              {data.trip.interests.length}/{maximumInterests} selected
+            </Typography>
+          </Stack>
+          <Box
+            sx={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1,
+            }}
+          >
+            {interestOptions.map((interest) => {
+              const isSelected = data.trip.interests.includes(interest)
+              const isDisabled =
+                !isSelected && data.trip.interests.length >= maximumInterests
+
+              return (
+                <Chip
+                  key={interest}
+                  label={interest}
+                  clickable
+                  disabled={isDisabled}
+                  variant={isSelected ? 'filled' : 'outlined'}
+                  onClick={() => handleInterestToggle(interest)}
+                  sx={(theme) => ({
+                    borderRadius: 999,
+                    fontWeight: 700,
+                    borderColor: isSelected
+                      ? theme.palette.primary.main
+                      : theme.palette.divider,
+                    color: isSelected
+                      ? theme.palette.primary.contrastText
+                      : theme.palette.text.secondary,
+                    background: isSelected
+                      ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`
+                      : theme.palette.background.default,
+                    boxShadow: isSelected
+                      ? `0 10px 22px ${theme.palette.primary.main}24`
+                      : 'none',
+                    '&:hover': {
+                      borderColor: theme.palette.primary.main,
+                      background: isSelected
+                        ? `linear-gradient(135deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.main})`
+                        : `${theme.palette.primary.main}12`,
+                    },
+                    '&.Mui-disabled': {
+                      opacity: 0.42,
+                    },
+                  })}
+                />
+              )
+            })}
+          </Box>
         </Box>
 
         <Stack
