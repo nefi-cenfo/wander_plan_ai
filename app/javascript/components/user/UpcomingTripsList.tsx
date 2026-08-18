@@ -219,7 +219,7 @@ export default function UpcomingTripsList({ trips }: { trips: Trip[] }) {
               </Box>
               <Button
                 LinkComponent={Link}
-                href="/trips/new"
+                href="/discover"
                 variant="contained"
                 sx={{ borderRadius: 2, fontWeight: 800, textTransform: 'none' }}
               >

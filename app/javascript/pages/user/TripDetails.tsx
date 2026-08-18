@@ -37,6 +37,7 @@ function TripDetails({ trip }: { trip: Trip }) {
             <SuggestionList
               suggestions={suggestions}
               destination={trip.destination}
+              tripId={trip.id}
             />
           ) : (
             <Alert severity="info">

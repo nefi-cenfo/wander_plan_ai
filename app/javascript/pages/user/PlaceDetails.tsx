@@ -22,6 +22,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined'
 import PlaceMap from '@/components/placeDetails/PlaceMap'
 import PlaceGallery from '@/components/placeDetails/PlaceGallery'
+import { BreadcrumbItem } from '@/types/breadcrumb'
 
 function PlaceDetails({
   suggestion,
@@ -95,7 +96,7 @@ function PlaceDetails({
               {location_details.descriptions[0]?.value ??
                 suggestion.description}
             </Typography>
-            <Box sx={{ mb: 4 }}>
+            <Box sx={{ mb: 6 }}>
               <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
                 Location
               </Typography>
@@ -263,14 +264,21 @@ PlaceDetails.layout = (
     enrichedData?.location_details.names[0]?.value ||
     suggestion?.name ||
     'Place Details'
+  const params = new URLSearchParams(window.location.search)
+  const tripId = Number(params.get('tripId'))
+  const locationBreadcrumb: BreadcrumbItem[] = suggestion?.city
+    ? [{ label: suggestion.city }]
+    : []
+  if (locationBreadcrumb.length && tripId) {
+    locationBreadcrumb[0].href = `/trips/show/${tripId}`
+  }
 
   return (
     <UserLayout
       navigationItems={menuItems}
       breadcrumbs={[
         { label: 'Dashboard', href: '/' },
-        { label: 'Discover', href: '/trips/new' },
-        ...(suggestion?.city ? [{ label: suggestion.city }] : []),
+        ...locationBreadcrumb,
         { label: placeName },
       ]}
     >

@@ -199,7 +199,7 @@ export default function UpcomingTripWidget({ trip }: { trip: Trip | null }) {
               </Typography>
               <Button
                 LinkComponent={Link}
-                href="/trips/new"
+                href="/discover"
                 startIcon={<TravelExploreRoundedIcon />}
                 variant="contained"
                 size="small"

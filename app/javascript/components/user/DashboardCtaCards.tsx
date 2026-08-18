@@ -26,7 +26,7 @@ const ctaCards: CtaCard[] = [
   {
     title: 'Discover',
     description: 'Get AI recommendations',
-    href: '/trips/new',
+    href: '/discover',
     icon: AutoAwesomeRoundedIcon,
   },
   {
