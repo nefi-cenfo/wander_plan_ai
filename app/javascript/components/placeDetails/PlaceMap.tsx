@@ -11,7 +11,7 @@ export default function PlaceMap({
   const position = { lat: latitude, lng: longitude }
 
   return (
-    <Box sx={{ height: 360, width: '100%' }}>
+    <Box sx={{ height: { xs: 260, sm: 320, md: 360 }, width: '100%' }}>
       <Map
         mapId={'bf51a910020fa25a'}
         defaultZoom={15}

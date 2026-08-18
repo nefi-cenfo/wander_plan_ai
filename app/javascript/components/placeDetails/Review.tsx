@@ -1,5 +1,5 @@
 import { TripadvisorReview } from '@/types/tripadvisor-data'
-import { Avatar, Box, Divider, Rating, Typography } from '@mui/material'
+import { Avatar, Box, Divider, Rating, Stack, Typography } from '@mui/material'
 
 const formatRelativeTime = (timestamp: string) => {
   const publishedAt = new Date(timestamp).getTime()
@@ -34,18 +34,34 @@ export default function Review({
   const { user, text, title, publish_ts, rating } = locationReview
   return (
     <Box>
-      <Typography
-        variant="h5"
-        sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={{ xs: 1.5, sm: 2 }}
+        sx={{
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          justifyContent: 'space-between',
+          mb: 2,
+        }}
       >
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', minWidth: 0 }}>
           <Avatar
             alt={user.username}
             src={user.avatar_url.url}
-            sx={{ width: 56, height: 56 }}
+            sx={{ width: { xs: 48, sm: 56 }, height: { xs: 48, sm: 56 } }}
           />
-          <Box sx={{ display: 'flex', flexDirection: 'column', ml: 2 }}>
-            <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              ml: 2,
+              minWidth: 0,
+            }}
+          >
+            <Typography
+              variant="h6"
+              component="span"
+              sx={{ fontWeight: 700, overflowWrap: 'anywhere' }}
+            >
               {user.username}
             </Typography>
             <Typography variant="body2">
@@ -53,13 +69,15 @@ export default function Review({
             </Typography>
           </Box>
         </Box>
-        <Rating name="read-only" value={rating} readOnly />
-      </Typography>
+        <Rating name="read-only" value={rating} readOnly size="small" />
+      </Stack>
       <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
         {title[0].value}
       </Typography>
-      <Typography variant="body1">{text[0].value}</Typography>
-      <Divider sx={{ my: 5 }} />
+      <Typography variant="body1" sx={{ overflowWrap: 'anywhere' }}>
+        {text[0].value}
+      </Typography>
+      <Divider sx={{ my: { xs: 3, md: 5 } }} />
     </Box>
   )
 }
