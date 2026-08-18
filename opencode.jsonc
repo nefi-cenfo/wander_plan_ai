@@ -7,5 +7,11 @@
       "enabled": true,
       "timeout": 10000,
     },
+    "tripadvisor-content": {
+      "type": "remote",
+      "enabled": true,
+      "url": "https://docs.terra.tripadvisor.com/mcp",
+      "timeout": 10000,
+    },
   },
 }

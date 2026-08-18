@@ -49,6 +49,11 @@ class TripsController < ApplicationController
     end_date = permitted_params[:end_date].to_date
     @trip.number_days = (end_date - start_date).to_i + 1
 
+    if @trip.date_errors.any?
+      session[:errors] = trip_form_errors(@trip)
+      return redirect_to new_trip_path, alert: "Please choose valid dates that do not overlap an existing trip."
+    end
+
     @destination = Destination.find_or_initialize_by(latitude: latitude, longitude: longitude)
     @destination.location = location
     suggestion_list = AiTravelPlannerService.new(@trip, @destination).call
@@ -89,5 +94,9 @@ class TripsController < ApplicationController
 
   def require_premium!
     redirect_to checkout_index_path, alert: "You need a Premium subscription to access this feature." unless current_user.premium? || current_user.active_trips_count < 3
+  end
+
+  def trip_form_errors(trip)
+    trip.errors.messages.transform_keys { |attribute| "trip.#{attribute}" }
   end
 end

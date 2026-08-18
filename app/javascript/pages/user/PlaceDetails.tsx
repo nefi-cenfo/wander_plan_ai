@@ -103,10 +103,12 @@ function PlaceDetails({
               <Typography variant="body1" sx={{ mb: 4 }}>
                 {location_details.addresses[0]?.formatted}
               </Typography>
-              <PlaceMap
-                latitude={location_details.coordinates.latitude}
-                longitude={location_details.coordinates.longitude}
-              />
+              {location_details.coordinates && (
+                <PlaceMap
+                  latitude={location_details.coordinates.latitude}
+                  longitude={location_details.coordinates.longitude}
+                />
+              )}
             </Box>
             <div ref={reviewsSectionRef} id="reviews">
               <ReviewsSection
