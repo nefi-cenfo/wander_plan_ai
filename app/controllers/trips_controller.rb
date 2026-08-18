@@ -39,7 +39,7 @@ class TripsController < ApplicationController
   def create
     permitted_params = trip_params
 
-    @trip = Trip.new(permitted_params.except(:location, :latitude, :longitude))
+    @trip = Trip.new(permitted_params.except(:location, :latitude, :longitude, :interests))
     @trip.user = current_user
 
     location = permitted_params[:location]
@@ -56,7 +56,7 @@ class TripsController < ApplicationController
 
     @destination = Destination.find_or_initialize_by(latitude: latitude, longitude: longitude)
     @destination.location = location
-    suggestion_list = AiTravelPlannerService.new(@trip, @destination).call
+    suggestion_list = AiTravelPlannerService.new(@trip, @destination, permitted_params[:interests]).call
     @itinerary = Itinerary.new(suggestions_ai: suggestion_list, plan_ai: {})
     @trip.itinerary = @itinerary
 
@@ -85,7 +85,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:start_date, :end_date, :location, :latitude, :longitude)
+    params.require(:trip).permit(:start_date, :end_date, :location, :latitude, :longitude, interests: [])
   end
 
   def next_trips
