@@ -13,7 +13,7 @@ export const menuItems: NavigationItem[] = [
   {
     name: 'Discover',
     icon: ViewCarouselRoundedIcon,
-    link: '/trips/new',
+    link: '/discover',
   },
   {
     name: 'My Trips',

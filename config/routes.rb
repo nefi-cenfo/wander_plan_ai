@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       post :portal, on: :collection
     end
 
-    resources :trips, only: [ :new, :index, :create, :destroy ] do
+    get "discover", to: "trips#new", as: :new_trip
+    resources :trips, only: [ :index, :create, :destroy ] do
       get "itinerary", to: "itineraries#show"
       get "itineraries/download_pdf", to: "itineraries#download_pdf"
       get ":id", to: "trips#show"

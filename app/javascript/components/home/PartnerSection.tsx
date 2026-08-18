@@ -64,7 +64,9 @@ export default function PartnerSection() {
         sx={{
           width: '498px',
           height: '348px',
-          backgroundColor: 'lightgreen',
+          backgroundColor: 'rgba(14, 165, 164, 0.12)',
+          backdropFilter: 'blur(18px)',
+          border: '1px solid rgba(14, 165, 164, 0.2)',
           borderRadius: '15px',
           display: 'flex',
           justifyContent: 'center',
@@ -81,6 +83,7 @@ export default function PartnerSection() {
                   fontWeight: '700',
                   color: 'text.secondary',
                   textTransform: 'uppercase',
+                  mr: 0.25,
                 }}
               >
                 TripAdvisor Highlight

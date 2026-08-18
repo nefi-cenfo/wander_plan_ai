@@ -37,6 +37,8 @@ function Discover({
   )
   const isPremium = auth.user?.subscription.premium ?? false
   const hasReachedBasicLimit = active_trips_count >= active_trips_limit
+  const params = new URLSearchParams(window.location.search)
+  const tripId = Number(params.get('created_trip_id'))
 
   useEffect(() => {
     setSuggestionList(suggestion_list?.length ? suggestion_list : null)
@@ -108,6 +110,7 @@ function Discover({
         <SuggestionList
           suggestions={suggestionList}
           destination={destination}
+          tripId={tripId}
         />
       )}
       {!suggestionList && (

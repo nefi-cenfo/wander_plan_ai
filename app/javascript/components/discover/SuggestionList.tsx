@@ -7,9 +7,11 @@ import SuggestionCard from './SuggestionCard'
 export default function SuggestionList({
   suggestions,
   destination,
+  tripId,
 }: {
   suggestions: Suggestion[]
   destination: Destination
+  tripId?: number
 }) {
   return (
     <Box>
@@ -54,6 +56,7 @@ export default function SuggestionList({
                 suggestion={suggestion}
                 destination={destination}
                 index={index}
+                tripId={tripId}
               />
             </Stack>
           </Grid>

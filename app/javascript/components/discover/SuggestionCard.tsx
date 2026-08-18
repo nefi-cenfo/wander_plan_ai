@@ -20,10 +20,12 @@ export default function SuggestionCard({
   suggestion,
   destination,
   index,
+  tripId,
 }: {
   suggestion: Suggestion
   destination: Destination
   index: number
+  tripId?: number
 }) {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false)
   const canExpandDescription = suggestion.description.length > 180
@@ -186,7 +188,7 @@ export default function SuggestionCard({
           endIcon={<EastOutlinedIcon />}
           sx={{ width: '100%', justifyContent: 'space-between', mt: 'auto' }}
           LinkComponent={Link}
-          href={`/destinations/${destination?.id}/places/${encodeURIComponent(suggestion.name)}`}
+          href={`/destinations/${destination?.id}/places/${encodeURIComponent(suggestion.name)}${tripId ? '?tripId=' + tripId : ''}`}
         >
           Explore Place
         </Button>

@@ -39,22 +39,26 @@ export default function ReviewsSection({
           Write a Review
         </Button>
       </Typography>
-      <Box sx={{ mb: 9 }}>
-        <ReviewsBreakdown travelerRatings={travelerRatings} />
-      </Box>
+      {travelerRatings.breakdowns.length > 0 && (
+        <Box sx={{ mb: 9 }}>
+          <ReviewsBreakdown travelerRatings={travelerRatings} />
+        </Box>
+      )}
       {locationReviews.map((review, index) => (
         <Review key={index} locationReview={review} />
       ))}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          variant="text"
-          LinkComponent="a"
-          size="large"
-          href={tripadvisorUrls.tripadvisor.main}
-          target="blank"
-        >
-          Show all {travelerRatings.overall.count} reviews on TripAdvisor
-        </Button>
+        {travelerRatings.overall && (
+          <Button
+            variant="text"
+            LinkComponent="a"
+            size="large"
+            href={tripadvisorUrls.tripadvisor.main}
+            target="blank"
+          >
+            Show all {travelerRatings.overall.count} reviews on TripAdvisor
+          </Button>
+        )}
       </Box>
     </>
   )

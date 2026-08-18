@@ -24,6 +24,7 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Link, router } from '@inertiajs/react'
 import TripCard from '@/components/trips/TripCard'
+import FlashSnackbar from '@/components/shared/FlashSnackbar'
 
 function Trips({ trips }: { trips: Trip[] }) {
   const [openDialog, handleDialog] = useState<boolean>(false)
@@ -42,6 +43,7 @@ function Trips({ trips }: { trips: Trip[] }) {
 
   return (
     <>
+      <FlashSnackbar />
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         spacing={2}
@@ -61,7 +63,7 @@ function Trips({ trips }: { trips: Trip[] }) {
         </Typography>
         <Button
           LinkComponent={Link}
-          href="/trips/new"
+          href="/discover"
           variant="contained"
           startIcon={<AddIcon />}
           size="large"
@@ -226,7 +228,7 @@ function Trips({ trips }: { trips: Trip[] }) {
 
                 <Button
                   LinkComponent={Link}
-                  href="/trips/new"
+                  href="/discover"
                   variant="contained"
                   size="large"
                   startIcon={<TravelExploreIcon />}

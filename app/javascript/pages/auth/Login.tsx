@@ -1,6 +1,8 @@
 import appLogo from '@/assets/app_logo.png'
 import LoginForm from '@/components/auth/LoginForm'
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
+import { Link } from '@inertiajs/react'
+import { Box, Button, Paper, Stack, Typography } from '@mui/material'
 
 export default function Login() {
   return (
@@ -115,6 +117,26 @@ export default function Login() {
             justifyContent: 'center',
           }}
         >
+          <Button
+            LinkComponent={Link}
+            href="/"
+            startIcon={<ArrowBackRoundedIcon />}
+            variant="text"
+            sx={{
+              alignSelf: 'flex-start',
+              color: 'text.secondary',
+              fontWeight: 800,
+              mb: 3,
+              px: 0,
+              textTransform: 'none',
+              '&:hover': {
+                bgcolor: 'transparent',
+                color: 'primary.main',
+              },
+            }}
+          >
+            Back to landing page
+          </Button>
           <Box
             component="img"
             src={appLogo}
