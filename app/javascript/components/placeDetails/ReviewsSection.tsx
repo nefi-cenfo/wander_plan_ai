@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import ReviewsBreakdown from './ReviewsBreakdown'
 import {
   TripadvisorReview,
@@ -18,14 +18,22 @@ export default function ReviewsSection({
 }) {
   return (
     <>
-      <Typography
-        component="h4"
-        sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        sx={{
+          alignItems: { xs: 'stretch', sm: 'center' },
+          justifyContent: 'space-between',
+          mb: { xs: 3, md: 4 },
+        }}
       >
         <Typography
-          component="span"
+          component="h4"
           variant="h4"
-          sx={{ fontWeight: 700, mb: 2 }}
+          sx={{
+            fontSize: { xs: '1.6rem', md: '2.125rem' },
+            fontWeight: 700,
+          }}
         >
           What travelers say
         </Typography>
@@ -35,12 +43,13 @@ export default function ReviewsSection({
           size="large"
           href={tripadvisorUrls.tripadvisor.write_review}
           target="blank"
+          sx={{ alignSelf: { sm: 'flex-start' } }}
         >
           Write a Review
         </Button>
-      </Typography>
+      </Stack>
       {travelerRatings.breakdowns.length > 0 && (
-        <Box sx={{ mb: 9 }}>
+        <Box sx={{ mb: { xs: 5, md: 9 } }}>
           <ReviewsBreakdown travelerRatings={travelerRatings} />
         </Box>
       )}
@@ -55,6 +64,7 @@ export default function ReviewsSection({
             size="large"
             href={tripadvisorUrls.tripadvisor.main}
             target="blank"
+            sx={{ textAlign: 'center' }}
           >
             Show all {travelerRatings.overall.count} reviews on TripAdvisor
           </Button>

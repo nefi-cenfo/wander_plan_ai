@@ -43,64 +43,99 @@ function PlaceDetails({
 
   return (
     <>
-      <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
+      <Typography
+        variant="h3"
+        sx={{
+          fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+          fontWeight: 700,
+          lineHeight: 1.12,
+          mb: 2,
+          wordBreak: 'break-word',
+        }}
+      >
         {location_details.names[0].value}, {location_details.geo}
       </Typography>
       <Stack
-        direction="row"
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        direction={{ xs: 'column', sm: 'row' }}
+        divider={
+          <Divider
+            flexItem
+            orientation="vertical"
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          />
+        }
+        spacing={{ xs: 1, sm: 2 }}
+        sx={{ alignItems: { xs: 'flex-start', sm: 'center' } }}
       >
-        <Typography variant="body2">
-          {' '}
-          <LocationOnOutlinedIcon />
-          {suggestion.city}, {suggestion.country}
-        </Typography>
-        <Rating
-          name="read-only"
-          value={location_details.traveler_ratings.overall?.rating}
-          readOnly
-          size="small"
-        />
         <Typography
           variant="body2"
-          component="button"
-          onClick={scrollToReviews}
-          sx={{
-            p: 0,
-            border: 0,
-            color: 'primary.main',
-            cursor: 'pointer',
-            backgroundColor: 'transparent',
-            textDecoration: 'underline',
-            font: 'inherit',
-          }}
+          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75 }}
         >
-          ({location_details.traveler_ratings.overall?.count.toLocaleString()}{' '}
-          reviews)
+          <LocationOnOutlinedIcon fontSize="small" />
+          {suggestion.city}, {suggestion.country}
         </Typography>
+        <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+          <Rating
+            name="read-only"
+            value={location_details.traveler_ratings.overall?.rating}
+            readOnly
+            size="small"
+          />
+          <Typography
+            variant="body2"
+            component="button"
+            onClick={scrollToReviews}
+            sx={{
+              p: 0,
+              border: 0,
+              color: 'primary.main',
+              cursor: 'pointer',
+              backgroundColor: 'transparent',
+              textDecoration: 'underline',
+              font: 'inherit',
+              textAlign: 'left',
+            }}
+          >
+            ({location_details.traveler_ratings.overall?.count.toLocaleString()}{' '}
+            reviews)
+          </Typography>
+        </Stack>
       </Stack>
       <Alert severity="info" sx={{ my: 3 }}>
         <AlertTitle>TripAdvisor Partner Data</AlertTitle>
         Ratings, reviews, and address information shown below are sample
         placeholders synchronized from TripAdvisor API.
       </Alert>
-      <Grid container spacing={4}>
-        <Grid size={8}>
+      <Grid container spacing={{ xs: 3, md: 4 }}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Box>
             <PlaceGallery locationPhotos={location_photos} />
-            <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
+            <Typography
+              variant="h4"
+              sx={{
+                fontSize: { xs: '1.6rem', md: '2.125rem' },
+                fontWeight: 700,
+                mb: 2,
+              }}
+            >
               About this place
             </Typography>
-            <Typography variant="body1" sx={{ mb: 4 }}>
+            <Typography variant="body1" sx={{ mb: { xs: 3, md: 4 } }}>
               {location_details.descriptions[0]?.value ??
                 suggestion.description}
             </Typography>
-            <Box sx={{ mb: 6 }}>
-              <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
+            <Box sx={{ mb: { xs: 4, md: 6 } }}>
+              <Typography
+                variant="h4"
+                sx={{
+                  fontSize: { xs: '1.6rem', md: '2.125rem' },
+                  fontWeight: 700,
+                  mb: 2,
+                }}
+              >
                 Location
               </Typography>
-              <Typography variant="body1" sx={{ mb: 4 }}>
+              <Typography variant="body1" sx={{ mb: { xs: 3, md: 4 } }}>
                 {location_details.addresses[0]?.formatted}
               </Typography>
               {location_details.coordinates && (
@@ -119,7 +154,7 @@ function PlaceDetails({
             </div>
           </Box>
         </Grid>
-        <Grid size={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Stack spacing={2.5}>
             <Card
               elevation={0}
@@ -144,12 +179,17 @@ function PlaceDetails({
                 },
               })}
             >
-              <CardContent sx={{ p: 3, '&:last-child': { pb: 3 } }}>
+              <CardContent
+                sx={{
+                  p: { xs: 2.25, sm: 3 },
+                  '&:last-child': { pb: { xs: 2.25, sm: 3 } },
+                }}
+              >
                 <Stack spacing={2}>
                   <Stack
                     direction="row"
                     spacing={1.5}
-                    sx={{ alignItems: 'center' }}
+                    sx={{ alignItems: 'flex-start' }}
                   >
                     <Box
                       sx={(theme) => ({
@@ -165,7 +205,7 @@ function PlaceDetails({
                     >
                       <AutoAwesomeOutlinedIcon fontSize="small" />
                     </Box>
-                    <Box>
+                    <Box sx={{ minWidth: 0 }}>
                       <Typography
                         variant="overline"
                         sx={{ color: 'primary.main', fontWeight: 800 }}
@@ -183,7 +223,7 @@ function PlaceDetails({
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ lineHeight: 1.8 }}
+                    sx={{ lineHeight: 1.8, overflowWrap: 'anywhere' }}
                   >
                     {suggestion.specialNotes}
                   </Typography>
@@ -193,7 +233,7 @@ function PlaceDetails({
             <Paper
               elevation={0}
               sx={(theme) => ({
-                p: 3,
+                p: { xs: 2.25, sm: 3 },
                 borderRadius: 3,
                 border: `1px solid ${theme.palette.divider}`,
                 background:
@@ -210,7 +250,7 @@ function PlaceDetails({
                 <Stack
                   direction="row"
                   spacing={1.5}
-                  sx={{ alignItems: 'center' }}
+                  sx={{ alignItems: 'flex-start' }}
                 >
                   <Box
                     sx={(theme) => ({
@@ -226,7 +266,7 @@ function PlaceDetails({
                   >
                     <InfoOutlinedIcon fontSize="small" />
                   </Box>
-                  <Box>
+                  <Box sx={{ minWidth: 0 }}>
                     <Typography
                       variant="overline"
                       sx={{ color: 'secondary.main', fontWeight: 800 }}
@@ -244,7 +284,7 @@ function PlaceDetails({
                 <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ lineHeight: 1.8 }}
+                  sx={{ lineHeight: 1.8, overflowWrap: 'anywhere' }}
                 >
                   {suggestion.tips}
                 </Typography>
